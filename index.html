@@ -10,38 +10,9 @@
         <div id="app">
             <div class="wrap">
                 <div class="chat-box">
-                    <!-- ざっくり/しっかり まで-->
                     <div class="chat-area">
-                        <!-- <div v-if="firstMsg.img1" class="chat-faceImg">
-                            <img src="" alt="">
-                        </div>
-                        <div class="chat-msgArea">
-                            <div v-if="firstMsg.area1" class="chat-message">
-                                <p v-if="firstMsg.load1">
-                                        <span class="loading-icon">
-                                            <span class="loading-circle1"></span>
-                                            <span class="loading-circle2"></span>
-                                            <span class="loading-circle3"></span>
-                                        </span>
-                                    </p>
-                                <p v-if="firstMsg.msg1">２つの方法で相場を計算することができます。</p>
-                                <span class="chat-message-before"></span>
-                            </div>
-                            <div v-if="firstMsg.area2" class="chat-message">
-                                <p v-if="firstMsg.load2">
-                                    <span class="loading-icon">
-                                        <span class="loading-circle1"></span>
-                                        <span class="loading-circle2"></span>
-                                        <span class="loading-circle3"></span>
-                                    </span>
-                                </p>
-                                <p v-if="firstMsg.msg2">どちらがご希望に近いですか？</p>
-                                <span class="chat-message-before"></span>
-                            </div>
-                        </div> -->
-                        <chat-faceImg />
-                        <chat-message message="aaa" />
                     </div>
+
                     <div v-if="select" class="chat-select-opt2">
                         <a v-on:click="select1opt1" class="chat-option">
                             <p class="option-title">ざっくり計算</p>
@@ -78,7 +49,6 @@
         </div>
         <!-- / #app -->
         <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
-        <script src="js/chat-message.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
