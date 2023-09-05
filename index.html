@@ -12,7 +12,7 @@
                 <div class="chat-box">
                     <!-- ざっくり/しっかり まで-->
                     <div class="chat-area">
-                        <div v-if="firstMsg.img1" class="chat-faceImg">
+                        <!-- <div v-if="firstMsg.img1" class="chat-faceImg">
                             <img src="" alt="">
                         </div>
                         <div class="chat-msgArea">
@@ -38,7 +38,9 @@
                                 <p v-if="firstMsg.msg2">どちらがご希望に近いですか？</p>
                                 <span class="chat-message-before"></span>
                             </div>
-                        </div>
+                        </div> -->
+                        <chat-faceImg />
+                        <chat-message message="aaa" />
                     </div>
                     <div v-if="select" class="chat-select-opt2">
                         <a v-on:click="select1opt1" class="chat-option">
@@ -76,6 +78,7 @@
         </div>
         <!-- / #app -->
         <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
+        <script src="js/chat-message.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

@@ -1,50 +1,21 @@
-const msg = '';
-const chatFaceImg = `
-  <div class="chat-faceImg">
-      <img src="" alt="">
-  </div>
-  `;
-const chatMessage =  `
-  <div class="chat-message">
-      <div>
-          <p>
-              <span class="loading-icon">
-                  <span class="loading-circle1"></span>
-                  <span class="loading-circle2"></span>
-                  <span class="loading-circle3"></span>
-              </span>
-          </p>
-          <p> ${ msg } </p>
-      </div>
-      <span class="chat-message-before"></span>
-  </div>
-  `;
-
 Vue.createApp({
-  // components: {
-  //   "chat-faceImg": chatFaceImg,
-  //   "chat-message": chatMessage,
-  // },
   data: function () {
     return {
+      question1: "",
       // ざっくりorしっかり
       msg1: {
         // 問いかけ
         que: {
-          img: false,
           que1: {
-            show: false,
-            msg: '２つの方法で相場を計算することができます。',
-            area: false,
-            load: false,
+            msg: "２つの方法で相場を計算することができます。",
           },
           que2: {
             show: false,
-            msg: 'どちらがご希望に近いですか？',
+            msg: "どちらがご希望に近いですか？",
             area: false,
-            load: false
+            load: false,
           },
-          select: false
+          select: false,
         },
         // 答え
         ans: {
@@ -65,29 +36,27 @@ Vue.createApp({
   },
   created: function () {
     // 画像表示
-    setTimeout(() => {
-      this.firstMsg.img1 = true;
-    }, 700);
-    // chatメッセージ順番表示
-    setTimeout(() => {
-      this.firstMsg.area1 = true;
-      this.firstMsg.load1 = true;
-    }, 1500);
-    setTimeout(() => {
-      this.firstMsg.load1 = false;
-      this.firstMsg.msg1 = true;
-    }, 2500);
-    setTimeout(() => {
-      this.firstMsg.area2 = true;
-      this.firstMsg.load2 = true;
-    }, 3500);
-    setTimeout(() => {
-      this.firstMsg.load2 = false;
-      this.firstMsg.msg2 = true;
-    }, 4500);
-    setTimeout(() => {
-      this.select = true;
-    }, 5500);
+    // setTimeout(() => {}, 700);
+    // // chatメッセージ順番表示
+    // setTimeout(() => {
+    //   this.firstMsg.area1 = true;
+    //   this.firstMsg.load1 = true;
+    // }, 1500);
+    // setTimeout(() => {
+    //   this.firstMsg.load1 = false;
+    //   this.firstMsg.msg1 = true;
+    // }, 2500);
+    // setTimeout(() => {
+    //   this.firstMsg.area2 = true;
+    //   this.firstMsg.load2 = true;
+    // }, 3500);
+    // setTimeout(() => {
+    //   this.firstMsg.load2 = false;
+    //   this.firstMsg.msg2 = true;
+    // }, 4500);
+    // setTimeout(() => {
+    //   this.select = true;
+    // }, 5500);
   },
   methods: {
     // 応答表示
@@ -132,18 +101,31 @@ Vue.createApp({
       }, 2000);
     },
   },
-}).mount("#app");
+})
 
-// select: false, //ざっくりorしっかり
-//       ans1: {
-//         show: false,
-//         msg: 'ざっくり計算です'
-//       },
-//       ans2: {
-//         show: false,
-//         msg: 'しっかり計算です'
-//       },
-//       read: false,
-//       area3: false,
-//       load3: false,
-//       msg3: false,
+  .component("chat-faceImg", {
+    template: `
+    <div class="chat-faceImg">
+    <img src="" alt="">
+    </div>
+  `,
+  })
+  // .component("chat-message", {
+  //   props: ['message'],
+  //   template: `
+  //   <div class="chat-message">
+  //       <div>
+  //           <p>
+  //               <span class="loading-icon">
+  //                   <span class="loading-circle1"></span>
+  //                   <span class="loading-circle2"></span>
+  //                   <span class="loading-circle3"></span>
+  //               </span>
+  //           </p>
+  //           <p>{{ message }}</p>
+  //       </div>
+  //       <span class="chat-message-before"></span>
+  //   </div>
+  // `,
+  // })
+  .mount("#app");
