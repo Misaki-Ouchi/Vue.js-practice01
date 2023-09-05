@@ -10,8 +10,8 @@ body {
   margin: auto;
 }
 
-.chat-box {
-  margin-bottom: 2rem;
+.chat-area {
+  margin-bottom: 1rem;
 }
 .chat-faceImg {
   position: relative;
@@ -31,28 +31,59 @@ body {
   margin-left: 100px;
   margin-top: -55px;
 }
+.chat-ansArea {
+  text-align: right;
+}
 /* 吹き出し一つ分 */
-.chat-message {
+.chat-message,
+.chat-answer {
   position: relative;
   display: inline-block;
-  border: 2px solid #19e;
   border-radius: 1.2rem;
   padding: 0rem 1rem;
   margin: 0.3rem 0;
 }
-.chat-message::before {
+.chat-message {
+  border: 2px solid #19e;
+}
+.chat-answer {
+  background-color: #099;
+  color: #fff;
+  text-align: left;
+  margin-right: 0;
+}
+.chat-message-before,
+.chat-answer-after {
   position: absolute;
   content: "";
   top: 1px;
-  left: -6px;
   width: 12px;
   height: 12px;
-  background-color: #fff;
-  border-left: 2px solid #19e;
-  border-top: 2px solid #19e;
-  transform: skew(30deg,10deg);
 }
-.chat-message p {
+.chat-message-before {
+  left: -6px;
+  background-color: #fff;
+  border-top: 2px solid #19e;
+  border-left: 2px solid #19e;
+  transform: skew(30deg, 10deg);
+}
+.chat-answer-after {
+  top: 3px;
+  right: 0px;
+  border: 5px solid transparent;
+  border-top: 15px solid #099;
+  transform: skew(150deg, 170deg);
+}
+.chat-answer-read {
+  position: absolute;
+  bottom: 0;
+  left: -2rem;
+  width: 1.6rem;
+  font-size: 0.8rem;
+  color: #000;
+}
+.chat-message p,
+.chat-answer p {
   font-size: 1.1rem;
   margin: 0.5rem;
 }
@@ -142,7 +173,7 @@ body {
   }
 }
 
-.chat-select {
+.chat-select-opt2 {
   display: flex;
   justify-content: space-around;
   background-color: rgb(0, 200, 250 , 30%);

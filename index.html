@@ -10,48 +10,71 @@
         <div id="app">
             <div class="wrap">
                 <div class="chat-box">
+                    <!-- ざっくり/しっかり まで-->
                     <div class="chat-area">
-                        <div v-if="show0" class="chat-faceImg">
+                        <div v-if="img1" class="chat-faceImg">
                             <img src="" alt="">
                         </div>
                         <div class="chat-msgArea">
-                            <div v-if="show1" class="chat-message">
-                                <div>
-                                    <p v-if="load1a">
+                            <div v-if="area1" class="chat-message">
+                                <p v-if="load1">
                                         <span class="loading-icon">
                                             <span class="loading-circle1"></span>
                                             <span class="loading-circle2"></span>
                                             <span class="loading-circle3"></span>
                                         </span>
                                     </p>
-                                    <p v-if="show1b">２つの方法で相場を計算することができます。</p>
-                                </div>
+                                <p v-if="msg1">２つの方法で相場を計算することができます。</p>
+                                <span class="chat-message-before"></span>
                             </div>
-                            <div v-if="show2" class="chat-message">
-                                <p v-if="load2a">
+                            <div v-if="area2" class="chat-message">
+                                <p v-if="load2">
                                     <span class="loading-icon">
                                         <span class="loading-circle1"></span>
                                         <span class="loading-circle2"></span>
                                         <span class="loading-circle3"></span>
                                     </span>
                                 </p>
-                                <p v-if="show2b">どちらがご希望に近いですか？</p>
+                                <p v-if="msg2">どちらがご希望に近いですか？</p>
+                                <span class="chat-message-before"></span>
                             </div>
                         </div>
                     </div>
+                    <div v-if="select1" class="chat-select-opt2">
+                        <a v-on:click="select1opt1" class="chat-option">
+                            <p class="option-title">ざっくり計算</p>
+                            <p class="option-detail">広さや形状から<br>おおまかに</p>
+                        </a>
+                        <a v-on:click="select1opt2" class="chat-option">
+                            <p class="option-title">しっかり計算</p>
+                            <p class="option-detail">欲しい機能や<br>設備も入れて</p>
+                        </a>
+                    </div>
+                    <!-- 選択後 -->
+                    <div class="chat-area">
+                        <div v-if="area3" class="chat-ansArea">
+                            <div class="chat-answer">
+                                <p v-if="load3">
+                                    <span class="loading-icon">
+                                        <span class="loading-circle1"></span>
+                                        <span class="loading-circle2"></span>
+                                        <span class="loading-circle3"></span>
+                                    </span>
+                                </p>
+                                <p v-if="ans1.show">{{ ans1.msg }}</p>
+                                <p v-if="ans2.show">{{ ans2.msg }}</p>
+                                <span class="chat-answer-after"></span>
+                                <span v-if="read" class="chat-answer-read">既読</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / ざっくり/しっかり まで -->
                 </div>
-                <div v-if="show3" class="chat-select">
-                    <a class="chat-option">
-                        <p class="option-title">ざっくり計算</p>
-                        <p class="option-detail">広さや形状から<br>おおまかに</p>
-                    </a>
-                    <a class="chat-option">
-                        <p class="option-title">しっかり計算</p>
-                        <p class="option-detail">欲しい機能や<br>設備も入れて</p>
-                    </a>
-                </div>
+                <!-- / .chat-box -->
             </div>
+            <!-- / .wrap -->
         </div>
+        <!-- / #app -->
         <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
         <script src="js/main.js"></script>
     </body>
