@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>チャットツール</title>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div id="app">
+            <div class="wrap">
+                <div class="chat-box">
+                    <div class="chat-area">
+                        <div class="chat-faceImg">
+                            <img src="" alt="">
+                        </div>
+                        <div class="chat-msgArea">
+                            <div class="chat-message">
+                                <p>
+                                    <div class="loading-icon">
+                                        <span></span>
+                                        <span class="loading-circle1"></span>
+                                        <span class="loading-circle2"></span>
+                                        <span class="loading-circle3"></span>
+                                    </div>
+                                    <span>２つの方法で相場を計算することができます。</span>
+                                </p>
+                            </div>
+                            <div class="chat-message">
+                                <p>
+                                    <div class="loading-icon"></div>
+                                    <span>どちらがご希望に近いですか？</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-select" v-bind:class="{display: isShow}">
+                    <a class="chat-option">
+                        <p class="option-title">ざっくり計算</p>
+                        <p class="option-detail">広さや形状から<br>おおまかに</p>
+                    </a>
+                    <a class="chat-option">
+                        <p class="option-title">しっかり計算</p>
+                        <p class="option-detail">欲しい機能や<br>設備も入れて</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
