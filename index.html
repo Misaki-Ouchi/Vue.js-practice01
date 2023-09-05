@@ -12,35 +12,35 @@
                 <div class="chat-box">
                     <!-- ざっくり/しっかり まで-->
                     <div class="chat-area">
-                        <div v-if="img1" class="chat-faceImg">
+                        <div v-if="firstMsg.img1" class="chat-faceImg">
                             <img src="" alt="">
                         </div>
                         <div class="chat-msgArea">
-                            <div v-if="area1" class="chat-message">
-                                <p v-if="load1">
+                            <div v-if="firstMsg.area1" class="chat-message">
+                                <p v-if="firstMsg.load1">
                                         <span class="loading-icon">
                                             <span class="loading-circle1"></span>
                                             <span class="loading-circle2"></span>
                                             <span class="loading-circle3"></span>
                                         </span>
                                     </p>
-                                <p v-if="msg1">２つの方法で相場を計算することができます。</p>
+                                <p v-if="firstMsg.msg1">２つの方法で相場を計算することができます。</p>
                                 <span class="chat-message-before"></span>
                             </div>
-                            <div v-if="area2" class="chat-message">
-                                <p v-if="load2">
+                            <div v-if="firstMsg.area2" class="chat-message">
+                                <p v-if="firstMsg.load2">
                                     <span class="loading-icon">
                                         <span class="loading-circle1"></span>
                                         <span class="loading-circle2"></span>
                                         <span class="loading-circle3"></span>
                                     </span>
                                 </p>
-                                <p v-if="msg2">どちらがご希望に近いですか？</p>
+                                <p v-if="firstMsg.msg2">どちらがご希望に近いですか？</p>
                                 <span class="chat-message-before"></span>
                             </div>
                         </div>
                     </div>
-                    <div v-if="select1" class="chat-select-opt2">
+                    <div v-if="select" class="chat-select-opt2">
                         <a v-on:click="select1opt1" class="chat-option">
                             <p class="option-title">ざっくり計算</p>
                             <p class="option-detail">広さや形状から<br>おおまかに</p>
