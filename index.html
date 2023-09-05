@@ -11,31 +11,36 @@
             <div class="wrap">
                 <div class="chat-box">
                     <div class="chat-area">
-                        <div class="chat-faceImg">
+                        <div v-if="show0" class="chat-faceImg">
                             <img src="" alt="">
                         </div>
                         <div class="chat-msgArea">
-                            <div class="chat-message">
-                                <p>
-                                    <div class="loading-icon">
-                                        <span></span>
+                            <div v-if="show1" class="chat-message">
+                                <div>
+                                    <p v-if="load1a">
+                                        <span class="loading-icon">
+                                            <span class="loading-circle1"></span>
+                                            <span class="loading-circle2"></span>
+                                            <span class="loading-circle3"></span>
+                                        </span>
+                                    </p>
+                                    <p v-if="show1b">２つの方法で相場を計算することができます。</p>
+                                </div>
+                            </div>
+                            <div v-if="show2" class="chat-message">
+                                <p v-if="load2a">
+                                    <span class="loading-icon">
                                         <span class="loading-circle1"></span>
                                         <span class="loading-circle2"></span>
                                         <span class="loading-circle3"></span>
-                                    </div>
-                                    <span>２つの方法で相場を計算することができます。</span>
+                                    </span>
                                 </p>
-                            </div>
-                            <div class="chat-message">
-                                <p>
-                                    <div class="loading-icon"></div>
-                                    <span>どちらがご希望に近いですか？</span>
-                                </p>
+                                <p v-if="show2b">どちらがご希望に近いですか？</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="chat-select" v-bind:class="{display: isShow}">
+                <div v-if="show3" class="chat-select">
                     <a class="chat-option">
                         <p class="option-title">ざっくり計算</p>
                         <p class="option-detail">広さや形状から<br>おおまかに</p>

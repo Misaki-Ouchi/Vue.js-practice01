@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/* css */
 body {
   /* background: url(../images/bg-body.jpg) repeat; */
   width: 700px;
@@ -30,6 +31,7 @@ body {
   margin-left: 100px;
   margin-top: -55px;
 }
+/* 吹き出し一つ分 */
 .chat-message {
   position: relative;
   display: inline-block;
@@ -54,25 +56,90 @@ body {
   font-size: 1.1rem;
   margin: 0.5rem;
 }
+
 /* チャットローディングアニメーション */
 .loading-icon {
   position: relative;
   display: inline-block;
-  width: 26px;
-  height: 100%;
+  width: 4rem;
 }
 .loading-icon > span {
   position: absolute;
-  top: -12px;
-  color: #555;
-  font-size: 10px;
+  top: -15px;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: #555;
+  border-radius: 50%;
+  font-size: 1rem;
   transform: scale(.7);
 }
 .loading-circle1 {
-  animation: rlc1 .8s linear infinite alternate
+  animation: rlc1 .8s linear infinite;
 }
 @keyframes rlc1 {
-  
+  0% {
+    margin-top: -6px;
+  }
+  25% {
+    margin-top: 0px;
+    opacity: .7;
+  }
+  50% {
+    margin-top: 6px;
+  }
+  75% {
+    margin-top: 0px;
+    opacity: .3;
+  }
+  100% {
+    margin-top: -6px;
+  }
+}
+.loading-circle2 {
+  animation: rlc2 .8s linear infinite;
+  margin-left: 1.2rem;
+}
+@keyframes rlc2 {
+  0% {
+    margin-top: 0px;
+    opacity: .3;
+  }
+  25% {
+    margin-top: -6px;
+  }
+  50% {
+    margin-top: 0px;
+  }
+  75% {
+    margin-top: 6px;
+    opacity: .7;
+  }
+  100% {
+    margin-top: 0px;
+  }
+}
+.loading-circle3 {
+  animation: rlc3 .8s linear infinite alternate;
+  margin-left: 2.4rem;
+}
+@keyframes rlc3 {
+  0% {
+    margin-top: 6px;
+    opacity: .7;
+  }
+  25% {
+    margin-top: 0px;
+  }
+  50% {
+    margin-top: -6px;
+    opacity: .3;
+  }
+  75% {
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: 6px;
+  }
 }
 
 .chat-select {
