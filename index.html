@@ -9,33 +9,33 @@
     <body>
         <div id="app">
             <div class="wrap">
-                <div class="chat-box">
-                    <!-- （選択肢提示前） -->
+                <div class="chat-box" v-for="msg in newList" v-bind:key="msg.key">
+                    <!-- 選択肢提示前 -->
                     <div class="chat-area">
                         <!-- 画像 -->
-                        <div v-if="firstMsg.img1" class="chat-faceImg">
+                        <div v-show="imgShow" class="chat-faceImg">
                             <img src="" alt="">
                         </div>
                         <!-- （メッセージ） -->
                         <div class="chat-msgArea">
                             <!-- メッセージ１エリア -->
-                            <div v-if="firstMsg.area1" class="chat-message">
+                            <div v-show="msg.que.area" class="chat-message">
                                 <!-- ローディング -->
-                                <p v-if="firstMsg.load1">
-                                        <span class="loading-icon">
-                                            <span class="loading-circle1"></span>
-                                            <span class="loading-circle2"></span>
-                                            <span class="loading-circle3"></span>
-                                        </span>
-                                    </p>
+                                <p v-show="queLoad1">
+                                    <span class="loading-icon">
+                                        <span class="loading-circle1"></span>
+                                        <span class="loading-circle2"></span>
+                                        <span class="loading-circle3"></span>
+                                    </span>
+                                </p>
                                 <!-- メッセージ１ -->
-                                <p v-if="firstMsg.msg1">２つの方法で相場を計算することができます。</p>
+                                <p v-show="queChat1">{{ msg.que.que1 }}</p>
                                 <span class="chat-message-before"></span>
                             </div>
                             <!-- メッセージ２エリア -->
-                            <div v-if="firstMsg.area2" class="chat-message">
+                            <div v-show="msg.que.area2" class="chat-message">
                                 <!-- ローディング -->
-                                <p v-if="firstMsg.load2">
+                                <p v-show="queLoad2">
                                     <span class="loading-icon">
                                         <span class="loading-circle1"></span>
                                         <span class="loading-circle2"></span>
@@ -43,29 +43,29 @@
                                     </span>
                                 </p>
                                 <!-- メッセージ２ -->
-                                <p v-if="firstMsg.msg2">どちらがご希望に近いですか？</p>
+                                <p v-show="queChat2">{{ msg.que.que2 }}</p>
                                 <span class="chat-message-before"></span>
                             </div>
                         </div>
                     </div>
                     <!-- 選択肢２つVer. -->
-                    <div v-if="select" class="chat-select-opt2">
-                        <a v-on:click="select1opt1" class="chat-option">
-                            <p class="option-title">ざっくり計算</p>
-                            <p class="option-detail">広さや形状から<br>おおまかに</p>
+                    <div v-show="msg.opt2.opt2Area" class="chat-select-opt2">
+                        <a v-on:click="selectOpt1" class="chat-option" v-bind:value="msg.opt2.opt1.a">
+                            <p class="option-title">{{ msg.opt2.opt1.a }}</p>
+                            <p class="option-detail">{{ msg.opt2.opt1.b }}<br>{{ msg.opt2.opt1.c }}</p>
                         </a>
-                        <a v-on:click="select1opt2" class="chat-option">
-                            <p class="option-title">しっかり計算</p>
-                            <p class="option-detail">欲しい機能や<br>設備も入れて</p>
+                        <a v-on:click="selectOpt2" class="chat-option" v-bind:value="msg.opt2.opt2.a">
+                            <p class="option-title">{{ msg.opt2.opt2.a }}</p>
+                            <p class="option-detail">{{ msg.opt2.opt2.b }}<br>{{ msg.opt2.opt2.c }}</p>
                         </a>
                     </div>
                     <!-- （選択後） -->
                     <div class="chat-area">
                         <!-- 選択後エリア -->
-                        <div v-if="area3" class="chat-ansArea">
+                        <div v-show="msg.ans.ansArea" class="chat-ansArea">
                             <div class="chat-answer">
                                 <!-- ローディング -->
-                                <p v-if="load3">
+                                <p v-show="ansLoad">
                                     <span class="loading-icon">
                                         <span class="loading-circle1"></span>
                                         <span class="loading-circle2"></span>
@@ -73,12 +73,12 @@
                                     </span>
                                 </p>
                                 <!-- 応答１ -->
-                                <p v-if="ans1.show">{{ ans1.msg }}</p>
+                                <p v-show="msg.ans.show1">{{ msg.ans.ans1 }}</p>
                                 <!-- 応答２ -->
-                                <p v-if="ans2.show">{{ ans2.msg }}</p>
+                                <p v-show="msg.ans.show2">{{ msg.ans.ans2 }}</p>
                                 <span class="chat-answer-after"></span>
                                 <!-- 既読 -->
-                                <span v-if="read" class="chat-answer-read">既読</span>
+                                <span v-show="msg.ans.read" class="chat-answer-read">既読</span>
                             </div>
                         </div>
                     </div>
