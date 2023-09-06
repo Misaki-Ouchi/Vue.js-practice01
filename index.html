@@ -10,9 +10,45 @@
         <div id="app">
             <div class="wrap">
                 <div class="chat-box">
+                    <!-- （選択肢提示前） -->
                     <div class="chat-area">
+                        <!-- 画像 -->
+                        <div v-if="firstMsg.img1" class="chat-faceImg">
+                            <img src="" alt="">
+                        </div>
+                        <!-- （メッセージ） -->
+                        <div class="chat-msgArea">
+                            <!-- メッセージ１エリア -->
+                            <div v-if="firstMsg.area1" class="chat-message">
+                                <!-- ローディング -->
+                                <p v-if="firstMsg.load1">
+                                        <span class="loading-icon">
+                                            <span class="loading-circle1"></span>
+                                            <span class="loading-circle2"></span>
+                                            <span class="loading-circle3"></span>
+                                        </span>
+                                    </p>
+                                <!-- メッセージ１ -->
+                                <p v-if="firstMsg.msg1">２つの方法で相場を計算することができます。</p>
+                                <span class="chat-message-before"></span>
+                            </div>
+                            <!-- メッセージ２エリア -->
+                            <div v-if="firstMsg.area2" class="chat-message">
+                                <!-- ローディング -->
+                                <p v-if="firstMsg.load2">
+                                    <span class="loading-icon">
+                                        <span class="loading-circle1"></span>
+                                        <span class="loading-circle2"></span>
+                                        <span class="loading-circle3"></span>
+                                    </span>
+                                </p>
+                                <!-- メッセージ２ -->
+                                <p v-if="firstMsg.msg2">どちらがご希望に近いですか？</p>
+                                <span class="chat-message-before"></span>
+                            </div>
+                        </div>
                     </div>
-
+                    <!-- 選択肢２つVer. -->
                     <div v-if="select" class="chat-select-opt2">
                         <a v-on:click="select1opt1" class="chat-option">
                             <p class="option-title">ざっくり計算</p>
@@ -23,10 +59,12 @@
                             <p class="option-detail">欲しい機能や<br>設備も入れて</p>
                         </a>
                     </div>
-                    <!-- 選択後 -->
+                    <!-- （選択後） -->
                     <div class="chat-area">
+                        <!-- 選択後エリア -->
                         <div v-if="area3" class="chat-ansArea">
                             <div class="chat-answer">
+                                <!-- ローディング -->
                                 <p v-if="load3">
                                     <span class="loading-icon">
                                         <span class="loading-circle1"></span>
@@ -34,14 +72,16 @@
                                         <span class="loading-circle3"></span>
                                     </span>
                                 </p>
+                                <!-- 応答１ -->
                                 <p v-if="ans1.show">{{ ans1.msg }}</p>
+                                <!-- 応答２ -->
                                 <p v-if="ans2.show">{{ ans2.msg }}</p>
                                 <span class="chat-answer-after"></span>
+                                <!-- 既読 -->
                                 <span v-if="read" class="chat-answer-read">既読</span>
                             </div>
                         </div>
                     </div>
-                    <!-- / ざっくり/しっかり まで -->
                 </div>
                 <!-- / .chat-box -->
             </div>
