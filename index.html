@@ -9,79 +9,44 @@
     <body>
         <div id="app">
             <div class="wrap">
-                <div class="chat-box" v-for="msg in newList" v-bind:key="msg.key">
-                    <!-- 選択肢提示前 -->
+                <div class="chat-box">
+
+                    <!-- アドバイザー -->
                     <div class="chat-area">
-                        <!-- 画像 -->
-                        <div v-show="imgShow" class="chat-faceImg">
-                            <img src="" alt="">
-                        </div>
-                        <!-- （メッセージ） -->
-                        <div class="chat-msgArea">
-                            <!-- メッセージ１エリア -->
-                            <div v-show="msg.que.area" class="chat-message">
-                                <!-- ローディング -->
-                                <p v-show="queLoad1">
-                                    <span class="loading-icon">
-                                        <span class="loading-circle1"></span>
-                                        <span class="loading-circle2"></span>
-                                        <span class="loading-circle3"></span>
-                                    </span>
-                                </p>
-                                <!-- メッセージ１ -->
-                                <p v-show="queChat1">{{ msg.que.que1 }}</p>
-                                <span class="chat-message-before"></span>
-                            </div>
-                            <!-- メッセージ２エリア -->
-                            <div v-show="msg.que.area2" class="chat-message">
-                                <!-- ローディング -->
-                                <p v-show="queLoad2">
-                                    <span class="loading-icon">
-                                        <span class="loading-circle1"></span>
-                                        <span class="loading-circle2"></span>
-                                        <span class="loading-circle3"></span>
-                                    </span>
-                                </p>
-                                <!-- メッセージ２ -->
-                                <p v-show="queChat2">{{ msg.que.que2 }}</p>
-                                <span class="chat-message-before"></span>
-                            </div>
-                        </div>
+                        <!-- アドバイザー画像 -->
+                        <adviser-img></adviser-img>
+                        <!-- アドバイザーメッセージ -->
+                        <advise-message
+                            v-show="advMesShow"
+                            v-for="msg in newAdv"
+                            v-bind:message="msg"
+                        ></advise-message>
                     </div>
+                    
                     <!-- 選択肢２つVer. -->
-                    <div v-show="msg.opt2.opt2Area" class="chat-select-opt2">
-                        <a v-on:click="selectOpt1" class="chat-option" v-bind:value="msg.opt2.opt1.a">
-                            <p class="option-title">{{ msg.opt2.opt1.a }}</p>
-                            <p class="option-detail">{{ msg.opt2.opt1.b }}<br>{{ msg.opt2.opt1.c }}</p>
-                        </a>
-                        <a v-on:click="selectOpt2" class="chat-option" v-bind:value="msg.opt2.opt2.a">
-                            <p class="option-title">{{ msg.opt2.opt2.a }}</p>
-                            <p class="option-detail">{{ msg.opt2.opt2.b }}<br>{{ msg.opt2.opt2.c }}</p>
-                        </a>
-                    </div>
-                    <!-- （選択後） -->
+                    <double-option
+                        v-show="dbOpt"
+                        v-for="msg in dbOptList"
+                        v-bind:message="msg"
+                        v-on:click.once="opt2Func"
+                    ></double-option>
+                    <!-- 選択肢３つVer. -->
+                    <triple-option
+                        v-show="tpOpt"
+                        v-for="msg in tpOptList"
+                        v-bind:message="msg"
+                        v-on:click.once="opt3Func"
+                    ></triple-option>
+
                     <div class="chat-area">
-                        <!-- 選択後エリア -->
-                        <div v-show="msg.ans.ansArea" class="chat-ansArea">
-                            <div class="chat-answer">
-                                <!-- ローディング -->
-                                <p v-show="ansLoad">
-                                    <span class="loading-icon">
-                                        <span class="loading-circle1"></span>
-                                        <span class="loading-circle2"></span>
-                                        <span class="loading-circle3"></span>
-                                    </span>
-                                </p>
-                                <!-- 応答１ -->
-                                <p v-show="msg.ans.show1">{{ msg.ans.ans1 }}</p>
-                                <!-- 応答２ -->
-                                <p v-show="msg.ans.show2">{{ msg.ans.ans2 }}</p>
-                                <span class="chat-answer-after"></span>
-                                <!-- 既読 -->
-                                <span v-show="msg.ans.read" class="chat-answer-read">既読</span>
-                            </div>
-                        </div>
+                        <!-- 選択後メッセージ -->
+                        <answer-message
+                            v-show="ansMesShow"
+                            v-for="msg in ansMesList"
+                            v-bind:message="msg"
+                        ></answer-message>
                     </div>
+
                 </div>
                 <!-- / .chat-box -->
             </div>
