@@ -1,0 +1,22 @@
+
+<template v-for="item in list">
+
+    <advise-area v-show="item.type === 3">
+        <adviser-img :show="show1"></adviser-img>
+        <template v-for="msg in item.msg0">
+            <advise-message :show="show2">{{ msg }}</advise-message>
+        </template>
+    </advise-area>
+
+    <advise-area>
+        <adviser-img :show="show3"></adviser-img>
+        <template v-for="msg in item.msg">
+            <advise-message :show="show4">{{ msg }}</advise-message>
+        </template>
+    </advise-area>
+
+    <triple-option v-for="msg in list.options" :show="show5" :message="msg" @click="selectFunc"></triple-option>
+
+    <answer-message :show="6">{{ item.selected }}です</answer-message>
+
+</template>
