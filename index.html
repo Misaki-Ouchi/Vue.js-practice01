@@ -12,40 +12,82 @@
                 <div class="chat-box">
 
                     <!-- アドバイザー -->
-                    <div class="chat-area">
+                    <advise-area>
                         <!-- アドバイザー画像 -->
-                        <adviser-img></adviser-img>
+                        <adviser-img :show="imgShow"></adviser-img>
                         <!-- アドバイザーメッセージ -->
                         <advise-message
-                            v-show="advMesShow"
-                            v-for="msg in newAdv"
-                            v-bind:message="msg"
-                        ></advise-message>
-                    </div>
-                    
-                    <!-- 選択肢２つVer. -->
+                            :show="advMesShow"
+                        >２つの方法で相場を計算することができます。</advise-message>
+                        <advise-message
+                            :show="advMesShow2"
+                        >どちらがご希望に近いですか？</advise-message>
+                    </advise-area>
+
+                    <!-- ざっくり計算/しっかり計算 ---------------->
                     <double-option
-                        v-show="dbOpt"
-                        v-for="msg in dbOptList"
-                        v-bind:message="msg"
-                        v-on:click.once="opt2Func"
+                        v-for="msg in [{ a1: 'ざっくり計算', b1: '広さや形状から', c1: 'おおまかに', a2: 'しっかり計算', b2: '欲しい機能や', c2: '設備も入れて'}]"
+                        :show="dbOpt"
+                        :message="msg"
+                        @click="opt2Func1"
                     ></double-option>
-                    <!-- 選択肢３つVer. -->
+
+                    <!-- ざっくり計算の場合 -->
+                    <answer-message :show="ansMesShow1">ざっくり計算です</answer-message>
+                    <!-- アドバイザー -->
+                    <advise-area>
+                        <adviser-img :show="ansMesShow1"></adviser-img>
+                        <advise-message
+                            :show="ansMesShow1"
+                        >かしこまりました。</advise-message>
+                        <advise-message
+                            :show="showList[0]"
+                        >一戸建てのお風呂リフォーム相場は</advise-message>
+                        <img v-show="showList[1]" src="" alt="300万円">
+                        <img v-show="showList[2]" src="" alt="最高">
+                        <img v-show="showList[3]" src="" alt="10万円">
+                        <img v-show="showList[4]" src="" alt="最安">
+                    </advise-area>
+                    <advise-area>
+                        <adviser-img :show="ansMesShow1"></adviser-img>
+                        <advise-message
+                            :show="showList[5]"
+                        >あなたの費用を、データをもとにしっかり計算します。</advise-message>
+                    </advise-area>
+                    
+                    <!-- しっかり計算の場合 -->
+                    <answer-message :show="ansMesShow2">しっかり計算です</answer-message>
+                    <advise-area>
+                        <adviser-img :show="ansMesShow1"></adviser-img>
+                        <advise-message
+                            :show="showList[6]"
+                        >あなたの費用を、データをもとにざっくり計算します。</advise-message>
+                    </advise-area>
+                    
+                    <!-- お風呂の形式 ------------------------>
+                    <advise-area>
+                        <adviser-img :show="ansMesShow1"></adviser-img>
+                        <advise-message
+                            :show="showList[7]"
+                        >希望されるお風呂は、どのような形式ですか？</advise-message>
+                    </advise-area>
+
                     <triple-option
-                        v-show="tpOpt"
-                        v-for="msg in tpOptList"
-                        v-bind:message="msg"
-                        v-on:click.once="opt3Func"
+                        v-for="msg in [{ a: 'ユニットバス', b: 'タイル貼り', c: 'わからない' }]"
+                        :show="tpOpt"
+                        :message="msg"
+                        @click="opt3Func1"
                     ></triple-option>
 
-                    <div class="chat-area">
-                        <!-- 選択後メッセージ -->
-                        <answer-message
-                            v-show="ansMesShow"
-                            v-for="msg in ansMesList"
-                            v-bind:message="msg"
-                        ></answer-message>
-                    </div>
+
+                    <!-- お風呂の大きさ -->
+                    <advise-area>
+                        <adviser-img :show="ansMesShow1"></adviser-img>
+                        <advise-message
+                            :show="showList[7]"
+                        >希望されるお風呂の大きさは、どのくらいですか？</advise-message>
+                    </advise-area>
+
 
                 </div>
                 <!-- / .chat-box -->

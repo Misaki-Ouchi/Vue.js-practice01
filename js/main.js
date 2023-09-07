@@ -1,14 +1,22 @@
-const adviserImg = {
+const adviseArea = {
   template: `
-  <!-- 画像 -->
-  <div class="chat-faceImg">
-      <img src="" alt="">
+  <div class="chat-area">
+    <slot></slot>
   </div>
   `
 }
+const adviserImg = {
+  template: `
+  <!-- 画像 -->
+  <div v-show="show" class="chat-faceImg">
+      <img src="" alt="">
+  </div>
+  `,
+  props: ['show']
+}
 const adviseM = {
   template: `
-      <div class="chat-msgArea">
+      <div v-show="show" class="chat-msgArea">
           <!-- メッセージエリア -->
           <div v-show="area" class="chat-message">
               <!-- ローディング -->
@@ -20,12 +28,12 @@ const adviseM = {
                   </span>
               </p>
               <!-- メッセージ -->
-              <p v-show="msg">{{ message }}</p>
+              <p v-show="msg"><slot></slot></p>
               <span class="chat-message-before"></span>
           </div>
       </div>
   `,
-  props: ['message'],
+  props: ['show', 'message'],
   data: function () {
     return {
       load: false,
@@ -33,20 +41,26 @@ const adviseM = {
       area: false
     }
   },
-  created: function () {
-    setTimeout(() => {
-      this.area = true
-      this.load = true
-    }, 100);
-    setTimeout(() => {
-      this.load = false
-      this.msg = true;
-    }, 200);
-  },
+  watch: {
+    show: {
+      handler(newData, oldData) {
+        if (oldData !== newData) {
+          setTimeout(() => {
+            this.area = true
+            this.load = true
+          }, 1000);
+          setTimeout(() => {
+            this.load = false
+            this.msg = true;
+          }, 2000);
+        }
+      }
+    }
+  }
 }
 const doubleOption = {
   template: `
-    <div class="chat-select-opt2">
+    <div v-show="show" class="chat-select-opt2">
       <a data-opt="a" class="chat-option">
         <p class="option-title">{{ message.a1 }}</p>
         <p class="option-detail">{{ message.b1 }}<br>{{ message.c1 }}</p>
@@ -57,69 +71,100 @@ const doubleOption = {
       </a>
     </div>
   `,
-  props: ['message', 'selectOpt1', 'selectOpt2']
-}
-const tripleOption = {
-  template: `
-    <div class="chat-select-opt3">
-      <a data-opt="a" class="chat-option">
-          <p class="option-detail">{{ message.a }}</p>
-      </a>
-      <a data-opt="b" class="chat-option">
-          <p class="option-detail">{{ message.b }}</p>
-      </a>
-      <a data-opt="c" class="chat-option">
-          <p class="option-detail">{{ message.c }}</p>
-      </a>
-    </div>
-  `,
-  props: ['message', 'selectOpt1', 'selectOpt2', 'selectOpt3']
+  props: ['show', 'message']
 }
 const answerM = {
   template: `
-  <div class="chat-ansArea">
-      <div class="chat-answer">
-          <!-- ローディング -->
-          <p v-show="load">
-              <span class="loading-icon">
-                  <span class="loading-circle1"></span>
-                  <span class="loading-circle2"></span>
-                  <span class="loading-circle3"></span>
-              </span>
-          </p>
-          <!-- 応答 -->
-          <p v-show="msg">{{ message }}</p>
-          <span class="chat-answer-after"></span>
-          <!-- 既読 -->
-          <span v-show="read" class="chat-answer-read">既読</span>
+  <div v-show="show" class="chat-area">
+      <div v-show="area" class="chat-ansArea">
+          <div class="chat-answer">
+              <!-- ローディング -->
+              <p v-show="load">
+                  <span class="loading-icon">
+                      <span class="loading-circle1"></span>
+                      <span class="loading-circle2"></span>
+                      <span class="loading-circle3"></span>
+                  </span>
+              </p>
+              <!-- 応答 -->
+              <p v-show="msg"><slot></slot></p>
+              <span class="chat-answer-after"></span>
+              <!-- 既読 -->
+              <span v-show="read" class="chat-answer-read">既読</span>
+          </div>
       </div>
   </div>
   `,
-  props: ['message'],
-  // data: function () {
-  //   return {
-  //     load: false,
-  //     msg: false,
-  //     read: false
-  //   }
-  // },
-  // created: function () {
-  //   setTimeout(() => {
-  //     this.load = true
-  //   }, 100);
-  //   setTimeout(() => {
-  //     this.load = false
-  //     this.msg = true;
-  //   }, 200);
-  //   setTimeout(() => {
-  //     this.read = true
-  //   }, 300);
-  // },
+  props: ['show'],
+  data: function () {
+    return {
+      area: false,
+      load: false,
+      msg: false,
+      read: false
+    }
+  },
+  watch: {
+    show: {
+      handler(newData, oldData) {
+        if (oldData !== newData) {
+          setTimeout(() => {
+            this.area = true
+            this.load = true
+          }, 1000);
+          setTimeout(() => {
+            this.load = false
+            this.msg = true;
+          }, 2000);
+          setTimeout(() => {
+            this.read = true
+          }, 3000);
+        }
+      }
+    }
+  }
+}
+const tripleOption = {
+  components: {
+    'answer-message': answerM
+  },
+  template: `
+    <div v-show="show" class="chat-select-opt3">
+      <a @click="ansA" class="chat-option">
+          <p class="option-detail">{{ message.a }}</p>
+      </a>
+      <a @click="ansB" class="chat-option">
+          <p class="option-detail">{{ message.b }}</p>
+      </a>
+      <a @click="ansC" class="chat-option">
+          <p class="option-detail">{{ message.c }}</p>
+      </a>
+    </div>
+    <answer-message>{{ answer }}です</answer-message>
+  `,
+  props: ['show', 'message'],
+  data: function () {
+    return {
+      answer: ''
+    }
+  },
+  methods: {
+    ansA: function (e) {
+      this.answer = e.target.value
+    },
+    ansB: function (e) {
+      this.answer = e.target.value
+    },
+    ansC: function (e) {
+      this.answer = e.target.value
+    }
+  }
 }
 
 
 Vue.createApp({
   components: {
+    'advise-area': adviseArea, //アドバイザーエリア
     'adviser-img': adviserImg, //アドバイザー画像
     'advise-message': adviseM, //アドバイザーメッセージ
     'double-option': doubleOption, //選択肢２つ
@@ -129,51 +174,104 @@ Vue.createApp({
   data: function () {
     return {
       // 表示true/非表示false
-      advImgShow: true, //アドバイザー画像
+      // createdにshow = true をsettimeoutで
+      imgShow: false, //アドバイザー画像
       advMesShow: false, //アドバイザーメッセージ
+      advMesShow2: false, //アドバイザーメッセージ
       dbOpt: false, //選択肢２つ
       tpOpt: false, //選択肢３つ
-      ansMesShow: true, //選択後メッセージ
-
-      // リストデータ・追加リスト
-      // 質問
-      advMesList: ['２つの方法で相場を計算することができます。', 'どちらがご希望に近いですか？'],
-      newAdv: [],
-      // 選択肢２つ
-      dbOptList: [{ a1: 'ざっくり計算', b1: '広さや形状から', c1: 'おおまかに', a2: 'しっかり計算', b2: '欲しい機能や', c2: '設備も入れて'}],
-      // 選択肢３つ
-      tpOptList: { a: 'はい', b: '興味がある', c: 'いいえ' },
-      newTpOpt: [],
-      // 答え
-      ansMesList: [],
+      ansMesShow1: false, //選択後メッセージ
+      ansMesShow2: false, //選択後メッセージ
+      // 選択後はmethodsで順番にtrueにしていく
+      showList: [{ 'reform': false }, { 'reform1': false }, { 'reform2': false }, { 'reform3': false }, { 'reform4': false }
+    ],
     };
   },
   created: function () {
     setTimeout(() => {
-      // this.advImgShow = true
-    }, 100);
+      this.imgShow = true
       this.advMesShow = true
-      this.newAdv.push(this.advMesList[0])
+    }, 1000);
     setTimeout(() => {
-      this.newAdv.push(this.advMesList[1])
-    }, 200);
+    }, 2000);
+    setTimeout(() => {
+      this.advMesShow2 = true
+    }, 3000);
     setTimeout(() => {
       this.dbOpt = true
-    }, 600);
+    }, 6000);
   },
   methods: {
-    opt2Func: function (e) {
-      this.ansMesShow = true
+    // ざっくりorしっかり
+    opt2Func1: function (e) {
+      // ざっくり
       if (e.target.dataset.opt === 'a') {
-        this.ansMesList.push(this.dbOptList[0].a1)
-        console.log(this.ansMesList[0])
+        this.ansMesShow1 = true
+        this.dbOpt = false
+        // リフォーム費用画像削除
+        this.showList.unshift(
+          { 'reform': false }, { 'reform1': false }, { 'reform2': false }, { 'reform3': false }, { 'reform4': false }
+        )
+      }
+      // しっかり
+      if (e.target.dataset.opt === 'b') {
+        this.ansMesShow2 = true
+        this.dbOpt = false
+        this.showFunc(this.showList)
+      }
+    },
+    // お風呂の形式
+    opt3Func1: function (e) {
+      // ユニットバス
+      if (e.target.dataset.opt === 'a') {
+        // this.ansMesShow1 = true
+        // this.dbOpt = false
+        // // リフォーム費用画像削除
+        // this.showList.unshift(
+        //   { 'reform': false }, { 'reform1': false }, { 'reform2': false }, { 'reform3': false }, { 'reform4': false }
+        // )
+      }
+      // タイル貼り
+      if (e.target.dataset.opt === 'b') {
+        // this.ansMesShow2 = true
+        // this.dbOpt = false
+        // this.showFunc(this.showList)
+      }
+      // わからない
+      if (e.target.dataset.opt === 'b') {
+        // this.ansMesShow2 = true
+        // this.dbOpt = false
+        // this.showFunc(this.showList)
+      }
+    },
+    opt3Func: function (e) {
+      if (e.target.dataset.opt === 'a') {
         
       }
       if (e.target.dataset.opt === 'b') {
-        this.ansMesList.push(this.dbOptList[0].a2)
-        console.log(this.ansMesList[0])
+        
+      }
+      if (e.target.dataset.opt === 'b') {
+        
       }
     },
-  },
+    showFunc: function (list) {
+      let i = 0
+      setTimeout(() => {
+        list[i].key = true
+        i++
+        if (i < list.length) {
+          this.showFunc(list)
+        }
+      }, 1000);
+      // for (let i = 0; i < list.length; i++){
+      //   if (list[i].key === false) {
+      //   setTimeout(() => {
+      //       list[i].key = true
+      //     }, 1000);
+      //   }
+      // }
+    }
+  }
 })
   .mount("#app");

@@ -9,19 +9,19 @@ body {
   padding: 2rem;
   margin: auto;
 }
-
+.chat-box {
+  margin-top: 2rem;
+}
 .chat-area {
-  margin-top: -4rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .chat-faceImg {
+  display: inline;
   position: relative;
-  top: 5rem;
-  width: 80px;
-  height: 80px;
+  top: 1rem;
+  padding: 28px 40px;
   border-radius: 50%;
   background-color: #aaa;
-  margin-bottom: 2rem;
 }
 .chat-faceImg::before {
   position: absolute;
@@ -35,6 +35,7 @@ body {
 }
 .chat-ansArea {
   text-align: right;
+  margin-bottom: 1rem;
 }
 /* 吹き出し一つ分 */
 .chat-message,
