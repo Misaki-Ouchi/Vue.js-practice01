@@ -61,28 +61,44 @@ const adviseM = {
 const doubleOption = {
   template: `
     <div v-show="show" class="chat-select-opt2">
-      <a data-opt="a" :id="message.a1" class="chat-option">
+      <a v-show="area" data-opt="a" :id="message.a1" class="chat-option">
         <p data-opt="a" class="option-title">{{ message.a1 }}</p>
         <p data-opt="a" class="option-detail">{{ message.b1 }}<br>{{ message.c1 }}</p>
       </a>
-      <a data-opt="b" class="chat-option">
+      <a v-show="area" data-opt="b" class="chat-option">
         <p data-opt="b" class="option-title">{{ message.a2 }}</p>
         <p data-opt="b" class="option-detail">{{ message.b2 }}<br>{{ message.c2 }}</p>
       </a>
     </div>
   `,
-  props: ['show', 'message']
+  props: ['show', 'message'],
+  data: function () {
+    return {
+      area: false
+    }
+  },
+  watch: {
+    show: {
+      handler(newData, oldData) {
+        if (oldData !== newData) {
+          setTimeout(() => {
+            this.area = true
+          }, 1000);
+        }
+      }
+    }
+  }
 }
 const tripleOption = {
   template: `
     <div v-show="show" class="chat-select-opt3">
-      <a data-opt="a" class="chat-option">
+      <a v-show="area" data-opt="a" class="chat-option">
           <p data-opt="a" class="option-detail">{{ message.a }}</p>
       </a>
-      <a data-opt="b" class="chat-option">
+      <a v-show="area" data-opt="b" class="chat-option">
           <p data-opt="b" class="option-detail">{{ message.b }}</p>
       </a>
-      <a data-opt="c" class="chat-option">
+      <a v-show="area" data-opt="c" class="chat-option">
           <p data-opt="c" class="option-detail">{{ message.c }}</p>
       </a>
     </div>
@@ -90,7 +106,19 @@ const tripleOption = {
   props: ['show', 'message'],
   data: function () {
     return {
-      answer: ''
+      answer: '',
+      area: false
+    }
+  },
+  watch: {
+    show: {
+      handler(newData, oldData) {
+        if (oldData !== newData) {
+          setTimeout(() => {
+            this.area = true
+          }, 1000);
+        }
+      }
     }
   }
 }
@@ -166,12 +194,15 @@ Vue.createApp({
       // type: type1 // msg1 + select
       // type: type2 // msg2 + select
       // type: type3 // msg1 + msg2 + select
-      // list[
-      //    { name: 'シャワーヘッド', type: 'type1',
-      //      msg0: [], msg: [],
-      //      options: [], selected: []
-      //    },
-      //  ]
+      list[
+        { name: 'シャワーヘッド',
+          msg0: [], // type1のみ
+          msg: [],
+          options: [], // 選択肢
+          selected: [], // 選んだ内容
+          type: 'type1',
+        },
+      ]
 
       // 表示・非表示用リスト
       showList: {
@@ -507,7 +538,7 @@ Vue.createApp({
         }, waitSeconds * 1000);
       })
     },
-    // 2秒ごとの繰り返し関数(実行関数、回数)
+    // 1秒ごとの繰り返し関数(実行関数、回数)
     interValFunc: function (func, count) {
       let i = 0
       setInterval(() => {

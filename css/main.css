@@ -177,26 +177,23 @@ body {
 }
 
 .chat-select-opt2,
-.chat-select-opt3 {
+.chat-select-opt {
   display: flex;
   justify-content: space-around;
   background-color: rgb(0, 200, 250 , 30%);
   padding: 1rem;
 }
-.chat-select-opt3 {
+.chat-select-opt {
   gap: 1rem;
 }
 .chat-option {
+  flex: 1;
   cursor: pointer;
-  padding: 1rem 4rem;
+  padding: 3rem 0;
   border: 2px solid #066;
   border-radius: 0.6rem;
   box-shadow: 0px 3px #0bd;
   background-color: #fff;
-}
-.chat-select-opt3 .chat-option {
-  padding: 3rem;
-  width: calc(100%/3);
 }
 .chat-option:hover {
   border: 2px solid #aaa;
@@ -210,6 +207,6 @@ body {
 .option-detail {
   text-align: center;
 }
-.chat-select-opt3 .option-detail {
+.chat-select-opt .option-detail {
   font-weight: bold;
 }

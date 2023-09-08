@@ -1,22 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div id="app">
+            <div class="wrap">
+                <div class="chat-box">
+                    <template v-for="item in newList">
+                        <!-- <advise-area v-show="item.type === 'type0'" :show="showList[0]">
+                            <adviser-img :show="showList[0] && item.show[0]"></adviser-img>
+                            <advise-message :show="showList[0]">{{ item.msg0[0] }}</advise-message>
+                            <advise-message :show="showList[1]">{{ item.msg0[1] }}</advise-message>
+                        </advise-area>
+                        <advise-area>
+                            <adviser-img :show="showList[2]"></adviser-img>
+                            <advise-message :show="showList[2]">{{ item.msg[0] }}</advise-message>
+                            <advise-message :show="showList[3]">{{ item.msg[1] }}</advise-message>
+                        </advise-area> -->
+                        <!-- しっかり/ざっくりの場合 -->
+                        <!-- <div class="chat-select-opt2">
+                            <a :id="item.options0.a1" class="chat-option">
+                                <p :id="item.options0.a1" class="option-title">{{ item.options0.a1 }}</p>
+                                <p :id="item.options0.a1" class="option-detail">{{ item.options0.b1 }}<br>{{ item.options0.c1 }}</p>
+                            </a>
+                            <a :id="item.options0.a2" class="chat-option">
+                                <p :id="item.options0.a2" class="option-title">{{ item.options0.a2 }}</p>
+                                <p :id="item.options0.a2" class="option-detail">{{ item.options0.b2 }}<br>{{ item.options0.c2 }}</p>
+                            </a>
+                        </div> -->
+                        <!-- 選択肢 -->
+                        <div v-show="true" class="chat-select-opt">
+                            <a v-show="true" v-for="value in item.options" :id="value" class="chat-option">
+                                <p :id="value" class="option-detail">{{ value }}</p>
+                            </a>
+                        </div>
+                        <!-- 答え -->
+                        <answer-message :show="showList[6]">{{ item.selected }}です</answer-message>
+                    </template>
 
-<template v-for="item in list">
-
-    <advise-area v-show="item.type === 3">
-        <adviser-img :show="show1"></adviser-img>
-        <template v-for="msg in item.msg0">
-            <advise-message :show="show2">{{ msg }}</advise-message>
-        </template>
-    </advise-area>
-
-    <advise-area>
-        <adviser-img :show="show3"></adviser-img>
-        <template v-for="msg in item.msg">
-            <advise-message :show="show4">{{ msg }}</advise-message>
-        </template>
-    </advise-area>
-
-    <triple-option v-for="msg in list.options" :show="show5" :message="msg" @click="selectFunc"></triple-option>
-
-    <answer-message :show="6">{{ item.selected }}です</answer-message>
-
-</template>
+                    <!-- しっかり計算の場合 -->
+                    <advise-area>
+                        <adviser-img :show="showList[6]"></adviser-img>
+                        <advise-message :show="showList[6]">かしこまりました。</advise-message>
+                        <advise-message :show="showList[7]">一戸建てのお風呂リフォーム相場は</advise-message>
+                        <img v-show="showList[8]" src="" alt="300万円">
+                        <img v-show="showList[9]" src="" alt="最高">
+                        <img v-show="showList[10]" src="" alt="10万円">
+                        <img v-show="showList[11]" src="" alt="最安">
+                    </advise-area>
+                    <advise-area>
+                        <adviser-img :show="showList[12]"></adviser-img>
+                        <advise-message :show="showList[13]">あなたの費用を、データをもとにしっかり計算します。</advise-message>
+                    </advise-area>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
+        <script src="js/dummy.js"></script>
+    </body>
+</html>
