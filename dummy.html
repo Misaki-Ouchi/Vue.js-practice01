@@ -10,8 +10,50 @@
         <div id="app">
             <div class="wrap">
                 <div class="chat-box">
+
+                        <!-- しっかり/ざっくりの場合 -->
+                        <advise-area v-show="list[0].type === 'type0'" :show="list[0].show[0]">
+                            <adviser-img :show="list[0].show[0]"></adviser-img>
+                            <advise-message :show="list[0].show[0]">{{ list[0].msg0[0] }}</advise-message>
+                            <advise-message :show="list[0].show[1]">{{ list[0].msg0[1] }}</advise-message>
+                        </advise-area>
+                        <div v-show="firstOpt[0]" class="chat-select-opt2">
+                            <a @click="fstSelectFunc" data-opt="ざっくり計算" class="chat-option">
+                            <p data-opt="ざっくり計算" class="option-title">ざっくり計算</p>
+                            <p data-opt="ざっくり計算" class="option-detail">広さや形状から<br>おおまかに</p>
+                        </a>
+                            <a @click="fstSelectFunc" data-opt="しっかり計算" class="chat-option">
+                            <p data-opt="しっかり計算" class="option-title">しっかり計算</p>
+                            <p data-opt="しっかり計算" class="option-detail">欲しい機能や<br>設備も入れて</p>
+                        </a>
+                        </div>
+                        <answer-message :show="firstOpt[1]" :message="list[0].selected"></answer-message>
+                        <advise-area :show="firstOpt[2]">
+                            <adviser-img :show="firstOpt[2]"></adviser-img>
+                            <!-- しっかり計算の場合 -->
+                            <advise-message :show="firstOptA[0]">かしこまりました。</advise-message>
+                            <advise-message :show="firstOptA[1]">一戸建てのお風呂リフォーム相場は</advise-message>
+                            <img v-show="firstOptA[2]" src="" alt="300万円">
+                            <img v-show="firstOptA[3]" src="" alt="最高">
+                            <img v-show="firstOptA[4]" src="" alt="10万円">
+                            <img v-show="firstOptA[5]" src="" alt="最安">
+                            <advise-area :show="firstOptA[6]">
+                                <adviser-img :show="firstOptA[6]"></adviser-img>
+                                <advise-message :show="firstOptA[7]">データをもとに、あなたの相場をしっかり計算します。</advise-message>
+                            </advise-area>
+                            <!-- ↑↑ここまで↑↑ しっかり計算の場合 -->
+                        </advise-area>
+                        <!-- ざっくり計算の場合 -->
+                        <advise-area :show="firstOptB[0]">
+                            <advise-message :show="firstOptB[0]">かしこまりました。</advise-message>
+                            <advise-message :show="firstOptB[1]">データをもとに、あなたの相場をざっくり計算します。</advise-message>
+                        </advise-area>
+                        <!-- ↑↑ここまで↑↑ ざっくり計算の場合 -->
+                        <!-- ↑↑ここまで↑↑ しっかり/ざっくりの場合 -->
+
+
                     <template v-for="item in newList">
-                        <advise-area v-show="item.type === 'type0'" :show="item.show[0]">
+                        <advise-area :show="item.show[0]">
                             <adviser-img :show="item.show[0]"></adviser-img>
                             <advise-message :show="item.show[0]">{{ item.msg0[0] }}</advise-message>
                             <advise-message :show="item.show[1]">{{ item.msg0[1] }}</advise-message>
@@ -23,48 +65,23 @@
                         </advise-area>
                         <!-- 選択肢 -->
                         <div v-show="item.show[4]" class="chat-select-opt">
-                            <a @click="selectFunc" v-for="value in item.options" data-opt="value" class="chat-option">
-                                <p data-opt="value" class="option-title">{{ value }}</p>
-                            </a>
+                            <template v-for="value in item.options">
+                                <a @click="selectFunc" :data-name="item.name" :data-opt="value" class="chat-option">
+                                    <p :data-name="item.name" :data-opt="value" class="option-title">{{ value }}</p>
+                                </a>
+                            </template>
                         </div>
-                        <!-- 答え -->
-                        <answer-message :show="item.show[5]">{{ item.selected }}です</answer-message>
-                        
-                        <!-- しっかり/ざっくりの場合 -->
-                        <div v-show="firstOpt[0]" class="chat-select-opt2">
-                            <a @click="fstSelectFunc" data-opt="ざっくり計算" class="chat-option">
-                                <p data-opt="ざっくり計算" class="option-title">ざっくり計算</p>
-                                <p data-opt="ざっくり計算" class="option-detail">広さや形状から<br>おおまかに</p>
-                            </a>
-                            <a @click="fstSelectFunc" data-opt="しっかり計算" class="chat-option">
-                                <p data-opt="しっかり計算" class="option-title">しっかり計算</p>
-                                <p data-opt="しっかり計算" class="option-detail">欲しい機能や<br>設備も入れて</p>
-                            </a>
-                        </div>
-                        <answer-message :show="firstOpt[1]" :message="item.selected"></answer-message>
-                        <advise-area :show="firstOpt[2]">
-                            <adviser-img :show="firstOpt[2]"></adviser-img>
-                            <advise-message :show="firstOpt[2]">かしこまりました。</advise-message>
-                            <!-- しっかり計算の場合 -->
-                            <advise-message :show="firstOptA[0]">一戸建てのお風呂リフォーム相場は</advise-message>
-                            <img v-show="firstOptA[1]" src="" alt="300万円">
-                            <img v-show="firstOptA[2]" src="" alt="最高">
-                            <img v-show="firstOptA[3]" src="" alt="10万円">
-                            <img v-show="firstOptA[4]" src="" alt="最安">
-                            <advise-area :show="firstOptA[3]">
-                                <adviser-img :show="firstOptA[4]"></adviser-img>
-                                <advise-message :show="firstOptA[5]">あなたの費用を、データをもとに{{ item.selected }}します。</advise-message>
-                            </advise-area>
-                            <!-- ↑↑ここまで↑↑ しっかり計算の場合 -->
-                        </advise-area>
-                        <!-- ↓↓ -->
-                        <advise-area :show="firstOpt[3]">
-                            <adviser-img :show="firstOpt[4]"></adviser-img>
-                            <advise-message :show="firstOpt[5]">あなたの費用を、データをもとに{{ item.selected }}します。</advise-message>
-                        </advise-area>
-                        <!-- ↑↑ここまで↑↑ しっかり/ざっくりの場合 -->
-                    </template>
 
+                        <!-- 答え -->
+                        <template opt in item.options>
+                            <answer-message :show="item.show[5]" :data-opt="opt">{{ opt }}
+                                <template v-show="item.show[6]">
+                                    です
+                                </template>
+                                <!-- ↑↑answerTypeがonlyの場合（あとで付ける） -->
+                            </answer-message>
+                        </template>
+                    </template>
                 </div>
             </div>
         </div>
