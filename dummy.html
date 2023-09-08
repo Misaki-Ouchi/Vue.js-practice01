@@ -11,51 +11,60 @@
             <div class="wrap">
                 <div class="chat-box">
                     <template v-for="item in newList">
-                        <!-- <advise-area v-show="item.type === 'type0'" :show="showList[0]">
-                            <adviser-img :show="showList[0] && item.show[0]"></adviser-img>
-                            <advise-message :show="showList[0]">{{ item.msg0[0] }}</advise-message>
-                            <advise-message :show="showList[1]">{{ item.msg0[1] }}</advise-message>
+                        <advise-area v-show="item.type === 'type0'" :show="item.show[0]">
+                            <adviser-img :show="item.show[0]"></adviser-img>
+                            <advise-message :show="item.show[0]">{{ item.msg0[0] }}</advise-message>
+                            <advise-message :show="item.show[1]">{{ item.msg0[1] }}</advise-message>
                         </advise-area>
-                        <advise-area>
-                            <adviser-img :show="showList[2]"></adviser-img>
-                            <advise-message :show="showList[2]">{{ item.msg[0] }}</advise-message>
-                            <advise-message :show="showList[3]">{{ item.msg[1] }}</advise-message>
-                        </advise-area> -->
-                        <!-- しっかり/ざっくりの場合 -->
-                        <!-- <div class="chat-select-opt2">
-                            <a :id="item.options0.a1" class="chat-option">
-                                <p :id="item.options0.a1" class="option-title">{{ item.options0.a1 }}</p>
-                                <p :id="item.options0.a1" class="option-detail">{{ item.options0.b1 }}<br>{{ item.options0.c1 }}</p>
-                            </a>
-                            <a :id="item.options0.a2" class="chat-option">
-                                <p :id="item.options0.a2" class="option-title">{{ item.options0.a2 }}</p>
-                                <p :id="item.options0.a2" class="option-detail">{{ item.options0.b2 }}<br>{{ item.options0.c2 }}</p>
-                            </a>
-                        </div> -->
+                        <advise-area :show="item.show[2]">
+                            <adviser-img :show="item.show[2]"></adviser-img>
+                            <advise-message :show="item.show[2]">{{ item.msg[0] }}</advise-message>
+                            <advise-message :show="item.show[3]">{{ item.msg[1] }}</advise-message>
+                        </advise-area>
                         <!-- 選択肢 -->
-                        <div v-show="true" class="chat-select-opt">
-                            <a v-show="true" v-for="value in item.options" :id="value" class="chat-option">
-                                <p :id="value" class="option-detail">{{ value }}</p>
+                        <div v-show="item.show[4]" class="chat-select-opt">
+                            <a @click="selectFunc" v-for="value in item.options" data-opt="value" class="chat-option">
+                                <p data-opt="value" class="option-title">{{ value }}</p>
                             </a>
                         </div>
                         <!-- 答え -->
-                        <answer-message :show="showList[6]">{{ item.selected }}です</answer-message>
+                        <answer-message :show="item.show[5]">{{ item.selected }}です</answer-message>
+                        
+                        <!-- しっかり/ざっくりの場合 -->
+                        <div v-show="firstOpt[0]" class="chat-select-opt2">
+                            <a @click="fstSelectFunc" data-opt="ざっくり計算" class="chat-option">
+                                <p data-opt="ざっくり計算" class="option-title">ざっくり計算</p>
+                                <p data-opt="ざっくり計算" class="option-detail">広さや形状から<br>おおまかに</p>
+                            </a>
+                            <a @click="fstSelectFunc" data-opt="しっかり計算" class="chat-option">
+                                <p data-opt="しっかり計算" class="option-title">しっかり計算</p>
+                                <p data-opt="しっかり計算" class="option-detail">欲しい機能や<br>設備も入れて</p>
+                            </a>
+                        </div>
+                        <answer-message :show="firstOpt[1]" :message="item.selected"></answer-message>
+                        <advise-area :show="firstOpt[2]">
+                            <adviser-img :show="firstOpt[2]"></adviser-img>
+                            <advise-message :show="firstOpt[2]">かしこまりました。</advise-message>
+                            <!-- しっかり計算の場合 -->
+                            <advise-message :show="firstOptA[0]">一戸建てのお風呂リフォーム相場は</advise-message>
+                            <img v-show="firstOptA[1]" src="" alt="300万円">
+                            <img v-show="firstOptA[2]" src="" alt="最高">
+                            <img v-show="firstOptA[3]" src="" alt="10万円">
+                            <img v-show="firstOptA[4]" src="" alt="最安">
+                            <advise-area :show="firstOptA[3]">
+                                <adviser-img :show="firstOptA[4]"></adviser-img>
+                                <advise-message :show="firstOptA[5]">あなたの費用を、データをもとに{{ item.selected }}します。</advise-message>
+                            </advise-area>
+                            <!-- ↑↑ここまで↑↑ しっかり計算の場合 -->
+                        </advise-area>
+                        <!-- ↓↓ -->
+                        <advise-area :show="firstOpt[3]">
+                            <adviser-img :show="firstOpt[4]"></adviser-img>
+                            <advise-message :show="firstOpt[5]">あなたの費用を、データをもとに{{ item.selected }}します。</advise-message>
+                        </advise-area>
+                        <!-- ↑↑ここまで↑↑ しっかり/ざっくりの場合 -->
                     </template>
 
-                    <!-- しっかり計算の場合 -->
-                    <advise-area>
-                        <adviser-img :show="showList[6]"></adviser-img>
-                        <advise-message :show="showList[6]">かしこまりました。</advise-message>
-                        <advise-message :show="showList[7]">一戸建てのお風呂リフォーム相場は</advise-message>
-                        <img v-show="showList[8]" src="" alt="300万円">
-                        <img v-show="showList[9]" src="" alt="最高">
-                        <img v-show="showList[10]" src="" alt="10万円">
-                        <img v-show="showList[11]" src="" alt="最安">
-                    </advise-area>
-                    <advise-area>
-                        <adviser-img :show="showList[12]"></adviser-img>
-                        <advise-message :show="showList[13]">あなたの費用を、データをもとにしっかり計算します。</advise-message>
-                    </advise-area>
                 </div>
             </div>
         </div>

@@ -183,12 +183,14 @@ body {
   background-color: rgb(0, 200, 250 , 30%);
   padding: 1rem;
 }
+.chat-select-opt2,
 .chat-select-opt {
-  gap: 1rem;
+  gap: 1.5rem;
 }
 .chat-option {
   flex: 1;
   cursor: pointer;
+  text-align: center;
   padding: 3rem 0;
   border: 2px solid #066;
   border-radius: 0.6rem;
@@ -202,11 +204,7 @@ body {
 }
 .option-title {
   font-weight: bold;
+}
+.chat-select-opt2 .option-title {
   font-size: 1.5rem;
-}
-.option-detail {
-  text-align: center;
-}
-.chat-select-opt .option-detail {
-  font-weight: bold;
 }
