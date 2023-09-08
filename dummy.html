@@ -73,14 +73,7 @@
                         </div>
 
                         <!-- 答え -->
-                        <template opt in item.options>
-                            <answer-message :show="item.show[5]" :data-opt="opt">{{ opt }}
-                                <template v-show="item.show[6]">
-                                    です
-                                </template>
-                                <!-- ↑↑answerTypeがonlyの場合（あとで付ける） -->
-                            </answer-message>
-                        </template>
+                        <answer-message :show="item.show[5]" :message="item.selected"></answer-message>
                     </template>
                 </div>
             </div>
