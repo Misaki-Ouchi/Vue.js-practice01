@@ -28,9 +28,9 @@
                         </a>
                         </div>
                         <answer-message :show="firstOpt[1]" :message="list[0].selected"></answer-message>
-                        <advise-area :show="firstOpt[2]">
-                            <adviser-img :show="firstOpt[2]"></adviser-img>
-                            <!-- しっかり計算の場合 -->
+                        <!-- しっかり計算の場合 -->
+                        <advise-area :show="firstOptA[0]">
+                            <adviser-img :show="firstOptA[0]"></adviser-img>
                             <advise-message :show="firstOptA[0]">かしこまりました。</advise-message>
                             <advise-message :show="firstOptA[1]">一戸建てのお風呂リフォーム相場は</advise-message>
                             <img v-show="firstOptA[2]" src="" alt="300万円">
@@ -41,10 +41,11 @@
                                 <adviser-img :show="firstOptA[6]"></adviser-img>
                                 <advise-message :show="firstOptA[7]">データをもとに、あなたの相場をしっかり計算します。</advise-message>
                             </advise-area>
-                            <!-- ↑↑ここまで↑↑ しっかり計算の場合 -->
+                        <!-- ↑↑ここまで↑↑ しっかり計算の場合 -->
                         </advise-area>
                         <!-- ざっくり計算の場合 -->
                         <advise-area :show="firstOptB[0]">
+                            <adviser-img :show="firstOptB[0]"></adviser-img>
                             <advise-message :show="firstOptB[0]">かしこまりました。</advise-message>
                             <advise-message :show="firstOptB[1]">データをもとに、あなたの相場をざっくり計算します。</advise-message>
                         </advise-area>
@@ -53,25 +54,25 @@
 
 
                     <template v-for="item in newList">
-                        <advise-area :show="item.show[0]">
+                        <!-- メッセージ -->
+                        <advise-area :show="item.show[0]" :data-scr1="item.name">
                             <adviser-img :show="item.show[0]"></adviser-img>
                             <advise-message :show="item.show[0]">{{ item.msg0[0] }}</advise-message>
                             <advise-message :show="item.show[1]">{{ item.msg0[1] }}</advise-message>
                         </advise-area>
                         <advise-area :show="item.show[2]">
-                            <adviser-img :show="item.show[2]"></adviser-img>
+                            <adviser-img :show="item.show[2]" :data-scr2="item.name"></adviser-img>
                             <advise-message :show="item.show[2]">{{ item.msg[0] }}</advise-message>
                             <advise-message :show="item.show[3]">{{ item.msg[1] }}</advise-message>
                         </advise-area>
                         <!-- 選択肢 -->
-                        <div v-show="item.show[4]" class="chat-select-opt">
+                        <div v-show="item.show[4]" class="chat-select-opt" :data-scr2="item.name">
                             <template v-for="value in item.options">
                                 <a @click="selectFunc" :data-name="item.name" :data-opt="value" class="chat-option">
                                     <p :data-name="item.name" :data-opt="value" class="option-title">{{ value }}</p>
                                 </a>
                             </template>
                         </div>
-
                         <!-- 答え -->
                         <answer-message :show="item.show[5]" :message="item.selected"></answer-message>
                     </template>

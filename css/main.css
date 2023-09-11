@@ -7,13 +7,15 @@ body {
 }
 .wrap {
   padding: 2rem;
+  padding-bottom: 0;
   margin: auto;
 }
 .chat-box {
   margin-top: 2rem;
+  margin-bottom: 80vh;
 }
 .chat-area {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 .chat-faceImg {
   display: inline;
