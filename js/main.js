@@ -64,7 +64,7 @@ const adviseM = {
           setTimeout(() => {
             this.load = false;
             this.msg = true;
-          }, 100);
+          }, 1000 / 4);
         }
       },
     },
@@ -110,10 +110,10 @@ const answerM = {
           setTimeout(() => {
             this.load = false;
             this.msg = true;
-          }, 100);
+          }, 1000 / 4);
           setTimeout(() => {
             this.read = true;
-          }, 200);
+          }, 2000 / 4);
         }
       },
     },
@@ -135,10 +135,6 @@ Vue.createApp({
       // type: type3 // msg1 + msg2 + select
       // type: type4 // msg1 + msg1 + select
       // type: type5 // msg2 + msg2 + select
-
-      // 工事の時期 の選択肢
-      // 市区町村 の選択肢
-
       list: [
         {
           name: "calc",
@@ -154,327 +150,327 @@ Vue.createApp({
           answerType: "need",
           show: [],
         },
-        // {
-        //   name: "bathType",
-        //   name2: "お風呂の形式",
-        //   msg0: [],
-        //   msg: ["希望されるお風呂は、どのような形式ですか？"],
-        //   // options: [{ a: 'ユニットバス', b: 'タイル貼り', c: 'わからない' }],
-        //   options: ["ユニットバス", "タイル貼り", "わからない"],
-        //   selected: "",
-        //   type: "type1",
-        //   answerType: "need",
-        //   show: [],
-        // },
-        // {
-        //   name: "bathSize",
-        //   name2: "お風呂の大きさ",
-        //   msg0: [],
-        //   msg: ["希望されるお風呂の大きさは、どのくらいですか？"],
-        //   options: ["２畳未満", "２畳以上", "わからない"],
-        //   selected: "",
-        //   type: "type1",
-        //   answerType: "need",
-        //   show: [],
-        // },
-        // {
-        //   name: "bathShape",
-        //   name2: "浴槽の形",
-        //   msg0: ["浴槽まわりの希望をお伺いします。"],
-        //   msg: [
-        //     "湯船につかる頻度が多い場合は、浴槽の形が重要です。",
-        //     "浴槽の形にこだわりはありますか？",
-        //   ],
-        //   options: ["広さ重視", "節水重視", "特になし"],
-        //   selected: "",
-        //   type: "type3",
-        //   answerType: "need",
-        //   show: [],
-        // },
-        // {
-        //   name: "keepWarm",
-        //   name2: "保温効果",
-        //   msg0: [],
-        //   msg: ["お湯の冷めにくい、保温効果のある浴槽をご希望されますか？"],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type1",
-        //   show: [],
-        // },
-        // {
-        //   name: "bubbleJet",
-        //   name2: "バブルバス・ジェットバス",
-        //   msg0: [],
-        //   msg: [
-        //     "リラックス・マッサージ効果のある、バブルバス・ジェットバスをご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type1",
-        //   show: [],
-        // },
-        // {
-        //   name: "audio",
-        //   name2: "オーディオの設置",
-        //   msg0: [],
-        //   msg: [
-        //     "お風呂に埋込み型のオーディオを設置すると、音の広がりがよく、また見た目もスッキリします。",
-        //     "お風呂にオーディオの設置を希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "tv",
-        //   name2: "テレビの設置",
-        //   msg0: [],
-        //   msg: [
-        //     "ゆったりお湯に浸かりながら、最大24インチの大迫力の画面でテレビを楽しむこともできます。",
-        //     "お風呂にテレビの設置を希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "light",
-        //   name2: "機能的な照明",
-        //   msg0: [],
-        //   msg: [
-        //     "設置する照明にこだわると、利用シーンに合わせて浴室の雰囲気を手軽に変えることができます。",
-        //     "機能的な照明をご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "reheat",
-        //   name2: "追い焚き機能",
-        //   msg0: [],
-        //   msg: [
-        //     "湯船に浸かる人が複数いたり、利用時間がバラバラな場合は、追い焚き機能が便利です。",
-        //     "追い焚き機能をご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "forApp",
-        //   name2: "アプリ対応",
-        //   msg0: [],
-        //   msg: [
-        //     "お湯はりや浴室暖房などをスマートフォンアプリで操作できるお風呂があります。",
-        //     "アプリ対応のお風呂をご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "showerHead",
-        //   name2: "シャワーヘッド",
-        //   msg0: ["つづいて、洗い場など浴室全体の希望をお伺いします"],
-        //   msg: [
-        //     "シャワーヘッドを変更することで、節水して水道代を抑えながら、適度な水圧による刺激を得ることができます。",
-        //     "シャワーヘッドは機能的なものをご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type3",
-        //   show: [],
-        // },
-        // {
-        //   name: "bodyShower",
-        //   name2: "ボディシャワー",
-        //   msg0: [],
-        //   msg: [
-        //     "全身にくまなくお湯を当ててくれるボディシャワーを利用することで、忙しい時のシャワーだけでもしっかりと体を温めることができます。",
-        //     "通常のシャワーに加えて、ボディシャワーの設置もご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "barrierFree",
-        //   name2: "バリアフリー",
-        //   msg0: [],
-        //   msg: [
-        //     "浴室で不意の事故がおきないよう、年配の方でも安全に入浴できるお風呂を希望される方が増えています。",
-        //     "段差の解消や手すりの設置など、バリアフリーなお風呂を希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "wallCabinet",
-        //   name2: "壁面棚",
-        //   msg0: [],
-        //   msg: ["洗い場のカウンターや、小物収納ができる壁面棚を希望しますか？"],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type1",
-        //   show: [],
-        // },
-        // {
-        //   name: "mistSauna",
-        //   name2: "ミストサウナ",
-        //   msg0: [],
-        //   msg: [
-        //     "ミストサウナとは、室内に蒸気をたっぷり充満させてじんわり体を温めるサウナです。室内の温度が40～60度ほどなので、設備さえあれば自宅の浴室でも楽しむことができます。",
-        //     "お風呂にミストサウナの設置を希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "floorHeating",
-        //   name2: "床暖房",
-        //   msg0: [],
-        //   msg: [
-        //     "床暖房機能があると、浴室の床が乾きやすくなり、カビやぬめりの発生を防ぐことができます。また、冬場のヒートショックを防ぐ効果もあります。",
-        //     "床暖房の設置はご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "autoWash",
-        //   name2: "自動洗浄のついた浴槽",
-        //   msg0: ["つぎに、入浴以外でのお風呂の活用について、お伺いします。"],
-        //   msg: [
-        //     "掃除の手間を減らすため、入浴後、自動で浴槽を洗浄してくれる機能があります。",
-        //     "自動洗浄のついた浴槽をご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type3",
-        //   show: [],
-        // },
-        // {
-        //   name: "removeBacteria",
-        //   name2: "入浴後の除菌機能",
-        //   msg0: [],
-        //   msg: [
-        //     "浴室の掃除の負担をへらすため、入浴後、床を水流で自動洗浄し、除菌する機能があります。",
-        //     "掃除の負担をへらすために、この機能をご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "bathroomDryer",
-        //   name2: "浴室乾燥機",
-        //   msg0: [],
-        //   msg: [
-        //     "浴室乾燥機能があると、天候や季節、花粉などを気にせずに、浴室で洗濯物を乾かすことができます。暖房とセットのため、冬場のヒートショックを防ぐ効果もあります。",
-        //     "浴室乾燥機をご希望されますか？",
-        //   ],
-        //   options: ["はい", "興味がある", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   show: [],
-        // },
-        // {
-        //   name: "currentType",
-        //   name2: "今のお風呂の形式",
-        //   msg0: ["今のお風呂の状況によって、工事費用が変わってきます。"],
-        //   msg: ["今のお風呂は、どのようなつくりになっていますか？"],
-        //   options: ["ユニットバス", "タイル貼り", "わからない"],
-        //   selected: "",
-        //   type: "type4",
-        //   answerType: "need",
-        //   current: "true",
-        //   show: [],
-        // },
-        // {
-        //   name: "yearOfUse",
-        //   name2: "使用年数",
-        //   msg0: [],
-        //   msg: ["ご使用年数は、どのくらいですか？"],
-        //   options: ["1~10年", "10~20年", "20年~", "0年(購入前)"],
-        //   selected: "",
-        //   type: "type1",
-        //   answerType: "need",
-        //   current: "true",
-        //   show: [],
-        // },
-        // {
-        //   name: "window",
-        //   name2: "浴室に窓",
-        //   msg0: [],
-        //   msg: ["浴室に窓はありますか？"],
-        //   options: ["ある", "ない"],
-        //   selected: "",
-        //   type: "type1",
-        //   current: "true",
-        //   show: [],
-        // },
-        // {
-        //   name: "placeOfFan",
-        //   name2: "換気扇の場所",
-        //   msg0: [],
-        //   msg: ["換気扇は、どこについていますか？"],
-        //   options: ["天井", "窓"],
-        //   selected: "",
-        //   type: "type1",
-        //   answerType: "need",
-        //   current: "true",
-        //   show: [],
-        // },
-        // {
-        //   name: "constPeriod",
-        //   name2: "工事の時期",
-        //   msg0: [],
-        //   msg: ["工事の時期はお決まりですか？"],
-        //   options: ["1~10年", "10~20年", "20年~", "0年(購入前)"],
-        //   selected: "",
-        //   type: "type1",
-        //   answerType: "need",
-        //   current: "true",
-        //   show: [],
-        // },
-        // {
-        //   name: "budget",
-        //   name2: "予算",
-        //   msg0: [],
-        //   msg: ["予算はいくらですか？"],
-        //   options: ["50万円未満", "50~80万円", "80~150万円", "150万円以上"],
-        //   selected: "",
-        //   type: "type1",
-        //   answerType: "need",
-        //   current: "true",
-        //   show: [],
-        // },
-        // {
-        //   name: "estimate",
-        //   name2: "見積もり",
-        //   msg0: [],
-        //   msg: ["見積もりはお持ちですか？"],
-        //   options: ["持っていない", "1社", "2社", "3社以上"],
-        //   selected: "",
-        //   type: "type1",
-        //   answerType: "need",
-        //   current: "true",
-        //   show: [],
-        // },
+        {
+          name: "bathType",
+          name2: "お風呂の形式",
+          msg0: [],
+          msg: ["希望されるお風呂は、どのような形式ですか？"],
+          // options: [{ a: 'ユニットバス', b: 'タイル貼り', c: 'わからない' }],
+          options: ["ユニットバス", "タイル貼り", "わからない"],
+          selected: "",
+          type: "type1",
+          answerType: "need",
+          show: [],
+        },
+        {
+          name: "bathSize",
+          name2: "お風呂の大きさ",
+          msg0: [],
+          msg: ["希望されるお風呂の大きさは、どのくらいですか？"],
+          options: ["２畳未満", "２畳以上", "わからない"],
+          selected: "",
+          type: "type1",
+          answerType: "need",
+          show: [],
+        },
+        {
+          name: "bathShape",
+          name2: "浴槽の形",
+          msg0: ["浴槽まわりの希望をお伺いします。"],
+          msg: [
+            "湯船につかる頻度が多い場合は、浴槽の形が重要です。",
+            "浴槽の形にこだわりはありますか？",
+          ],
+          options: ["広さ重視", "節水重視", "特になし"],
+          selected: "",
+          type: "type3",
+          answerType: "need",
+          show: [],
+        },
+        {
+          name: "keepWarm",
+          name2: "保温効果",
+          msg0: [],
+          msg: ["お湯の冷めにくい、保温効果のある浴槽をご希望されますか？"],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type1",
+          show: [],
+        },
+        {
+          name: "bubbleJet",
+          name2: "バブルバス・ジェットバス",
+          msg0: [],
+          msg: [
+            "リラックス・マッサージ効果のある、バブルバス・ジェットバスをご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type1",
+          show: [],
+        },
+        {
+          name: "audio",
+          name2: "オーディオの設置",
+          msg0: [],
+          msg: [
+            "お風呂に埋込み型のオーディオを設置すると、音の広がりがよく、また見た目もスッキリします。",
+            "お風呂にオーディオの設置を希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "tv",
+          name2: "テレビの設置",
+          msg0: [],
+          msg: [
+            "ゆったりお湯に浸かりながら、最大24インチの大迫力の画面でテレビを楽しむこともできます。",
+            "お風呂にテレビの設置を希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "light",
+          name2: "機能的な照明",
+          msg0: [],
+          msg: [
+            "設置する照明にこだわると、利用シーンに合わせて浴室の雰囲気を手軽に変えることができます。",
+            "機能的な照明をご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "reheat",
+          name2: "追い焚き機能",
+          msg0: [],
+          msg: [
+            "湯船に浸かる人が複数いたり、利用時間がバラバラな場合は、追い焚き機能が便利です。",
+            "追い焚き機能をご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "forApp",
+          name2: "アプリ対応",
+          msg0: [],
+          msg: [
+            "お湯はりや浴室暖房などをスマートフォンアプリで操作できるお風呂があります。",
+            "アプリ対応のお風呂をご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "showerHead",
+          name2: "シャワーヘッド",
+          msg0: ["つづいて、洗い場など浴室全体の希望をお伺いします"],
+          msg: [
+            "シャワーヘッドを変更することで、節水して水道代を抑えながら、適度な水圧による刺激を得ることができます。",
+            "シャワーヘッドは機能的なものをご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type3",
+          show: [],
+        },
+        {
+          name: "bodyShower",
+          name2: "ボディシャワー",
+          msg0: [],
+          msg: [
+            "全身にくまなくお湯を当ててくれるボディシャワーを利用することで、忙しい時のシャワーだけでもしっかりと体を温めることができます。",
+            "通常のシャワーに加えて、ボディシャワーの設置もご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "barrierFree",
+          name2: "バリアフリー",
+          msg0: [],
+          msg: [
+            "浴室で不意の事故がおきないよう、年配の方でも安全に入浴できるお風呂を希望される方が増えています。",
+            "段差の解消や手すりの設置など、バリアフリーなお風呂を希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "wallCabinet",
+          name2: "壁面棚",
+          msg0: [],
+          msg: ["洗い場のカウンターや、小物収納ができる壁面棚を希望しますか？"],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type1",
+          show: [],
+        },
+        {
+          name: "mistSauna",
+          name2: "ミストサウナ",
+          msg0: [],
+          msg: [
+            "ミストサウナとは、室内に蒸気をたっぷり充満させてじんわり体を温めるサウナです。室内の温度が40～60度ほどなので、設備さえあれば自宅の浴室でも楽しむことができます。",
+            "お風呂にミストサウナの設置を希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "floorHeating",
+          name2: "床暖房",
+          msg0: [],
+          msg: [
+            "床暖房機能があると、浴室の床が乾きやすくなり、カビやぬめりの発生を防ぐことができます。また、冬場のヒートショックを防ぐ効果もあります。",
+            "床暖房の設置はご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "autoWash",
+          name2: "自動洗浄のついた浴槽",
+          msg0: ["つぎに、入浴以外でのお風呂の活用について、お伺いします。"],
+          msg: [
+            "掃除の手間を減らすため、入浴後、自動で浴槽を洗浄してくれる機能があります。",
+            "自動洗浄のついた浴槽をご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type3",
+          show: [],
+        },
+        {
+          name: "removeBacteria",
+          name2: "入浴後の除菌機能",
+          msg0: [],
+          msg: [
+            "浴室の掃除の負担をへらすため、入浴後、床を水流で自動洗浄し、除菌する機能があります。",
+            "掃除の負担をへらすために、この機能をご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "bathroomDryer",
+          name2: "浴室乾燥機",
+          msg0: [],
+          msg: [
+            "浴室乾燥機能があると、天候や季節、花粉などを気にせずに、浴室で洗濯物を乾かすことができます。暖房とセットのため、冬場のヒートショックを防ぐ効果もあります。",
+            "浴室乾燥機をご希望されますか？",
+          ],
+          options: ["はい", "興味がある", "いいえ"],
+          selected: "",
+          type: "type2",
+          show: [],
+        },
+        {
+          name: "currentType",
+          name2: "今のお風呂の形式",
+          msg0: ["今のお風呂の状況によって、工事費用が変わってきます。"],
+          msg: ["今のお風呂は、どのようなつくりになっていますか？"],
+          options: ["ユニットバス", "タイル貼り", "わからない"],
+          selected: "",
+          type: "type4",
+          answerType: "need",
+          current: "true",
+          show: [],
+        },
+        {
+          name: "yearOfUse",
+          name2: "使用年数",
+          msg0: [],
+          msg: ["ご使用年数は、どのくらいですか？"],
+          options: ["1~10年", "10~20年", "20年~", "0年(購入前)"],
+          selected: "",
+          type: "type1",
+          answerType: "need",
+          current: "true",
+          show: [],
+        },
+        {
+          name: "window",
+          name2: "浴室に窓",
+          msg0: [],
+          msg: ["浴室に窓はありますか？"],
+          options: ["ある", "ない"],
+          selected: "",
+          type: "type1",
+          current: "true",
+          show: [],
+        },
+        {
+          name: "placeOfFan",
+          name2: "換気扇の場所",
+          msg0: [],
+          msg: ["換気扇は、どこについていますか？"],
+          options: ["天井", "窓"],
+          selected: "",
+          type: "type1",
+          answerType: "need",
+          current: "true",
+          show: [],
+        },
+        {
+          name: "constPeriod",
+          name2: "工事の時期",
+          msg0: [],
+          msg: ["工事の時期はお決まりですか？"],
+          options: ["1~10年", "10~20年", "20年~", "0年(購入前)"],
+          selected: "",
+          type: "type1",
+          answerType: "need",
+          current: "true",
+          show: [],
+        },
+        {
+          name: "budget",
+          name2: "予算",
+          msg0: [],
+          msg: ["予算はいくらですか？"],
+          options: ["50万円未満", "50~80万円", "80~150万円", "150万円以上"],
+          selected: "",
+          type: "type1",
+          answerType: "need",
+          current: "true",
+          show: [],
+        },
+        {
+          name: "estimate",
+          name2: "見積もり",
+          msg0: [],
+          msg: ["見積もりはお持ちですか？"],
+          options: ["持っていない", "1社", "2社", "3社以上"],
+          selected: "",
+          type: "type1",
+          answerType: "need",
+          current: "true",
+          show: [],
+        },
         {
           name: "prefecture",
           name2: "物件の場所",
@@ -557,7 +553,7 @@ Vue.createApp({
         //   ],
         //   options: ["はい", "いいえ"],
         //   selected: "",
-        //   type: "type1",
+        //   type: "type2",
         //   current: "true",
         //   show: [],
         // },
@@ -580,7 +576,7 @@ Vue.createApp({
       ],
       lastMsg: {
         msg0: [
-          "ご回答ありがとうございました。56分30秒ほどかかりましたが、あと少しです。",
+          "56分30秒",
           "現在、いただいた条件にて私の方で急ぎ算定しております。あと30秒ほどで結果を送付しますので、送付先の入力をお願いします。",
         ],
         msg: ["算定完了しました。送付先の入力をお願いします。"],
@@ -669,12 +665,12 @@ Vue.createApp({
         this.timerFunc(pushTa, 5);
         setTimeout(() => {
           this.interValFunc(pushTa, 4, 1);
-        }, 600);
+        }, 6000 / 4);
         // ２つ目の選択肢
         this.newList.push(this.list[1]);
         setTimeout(() => {
           this.showFunc(this.list[1]);
-        }, 900);
+        }, 9000 / 4);
       }
       if (e.target.dataset.opt === "ざっくり計算") {
         this.list[0].selected = "ざっくり計算です";
@@ -686,7 +682,7 @@ Vue.createApp({
         this.newList.push(this.list[1]);
         setTimeout(() => {
           this.showFunc(this.list[1]);
-        }, 400);
+        }, 4000 / 4);
       }
     },
 
@@ -705,12 +701,12 @@ Vue.createApp({
           setTimeout(() => {
             this.getCityData();
             list.cityShow = true;
-          }, 500);
+          }, 5000 / 4);
         }
         else { this.timerFunc(pushT, 5); }
         setTimeout(() => {
           this.optScroll(list);
-        }, 500);
+        }, 5000 / 4);
       }
       // メッセージが二つの場合
       if (list.type === "type2") {
@@ -721,32 +717,32 @@ Vue.createApp({
         this.timerFunc(pushT, 7);
         setTimeout(() => {
           this.optScroll(list);
-        }, 700);
+        }, 7000 / 4);
       }
       // メッセージが一つ + 二つの場合
       if (list.type === "type3") {
         this.timerFunc(pushTF, 3);
         setTimeout(() => {
           this.msgScroll(list);
-        }, 500);
+        }, 5000 / 4);
         this.timerFunc(pushT, 5);
         this.timerFunc(pushT, 7);
         this.timerFunc(pushT, 9);
         setTimeout(() => {
           this.optScroll(list);
-        }, 900);
+        }, 9000 / 4);
       }
       // メッセージが一つ + 一つの場合
       if (list.type === "type4") {
         this.timerFunc(pushTF, 3);
         setTimeout(() => {
           this.msgScroll(list);
-        }, 500);
+        }, 5000 / 4);
         this.timerFunc(pushTF, 5);
         this.timerFunc(pushT, 7);
         setTimeout(() => {
           this.optScroll(list);
-        }, 700);
+        }, 7000 / 4);
       }
       // メッセージが二つ + 二つの場合
       if (list.type === "type5") {
@@ -755,12 +751,12 @@ Vue.createApp({
         this.timerFunc(pushT, 7);
         setTimeout(() => {
           this.msgScroll(list);
-        }, 700);
+        }, 7000 / 4);
         this.timerFunc(pushT, 7);
         this.timerFunc(pushT, 9);
         setTimeout(() => {
           this.optScroll(list);
-        }, 900);
+        }, 9000 / 4);
       }
     },
 
@@ -868,9 +864,12 @@ Vue.createApp({
       list.show[5] = true;
       // 最後のメッセージ表示
       let pushT = () => this.lastMsg.show.push(true);
-      this.timerFunc(pushT, 1)
       this.timerFunc(pushT, 3)
       this.timerFunc(pushT, 5)
+      this.timerFunc(pushT, 7)
+      setTimeout(() => {
+        this.msgScroll(list);
+      }, 9000 / 4);
       this.timerFunc(pushT, 9)
       this.timerFunc(pushT, 11)
     },
@@ -908,7 +907,7 @@ Vue.createApp({
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(func());
-        }, waitSeconds * 100);
+        }, waitSeconds * 1000 / 4);
       });
     },
     // 一定時間ごとの繰り返し関数(実行関数、回数、秒数)
@@ -921,7 +920,7 @@ Vue.createApp({
         } else {
           clearInterval(null);
         }
-      }, seconds * 100);
+      }, seconds * 1000 / 4);
     },
   },
 }).mount("#app");

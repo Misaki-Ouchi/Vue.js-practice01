@@ -95,13 +95,13 @@
                     <!-- すべて回答後のメッセージ -->
                     <advise-area :show="lastMsg.show[0]">
                         <adviser-img :show="lastMsg.show[0]"></adviser-img>
-                        <advise-message :show="lastMsg.show[0]">{{ lastMsg.msg0[0] }}</advise-message>
+                        <advise-message :show="lastMsg.show[0]">ご回答ありがとうございました。{{ lastMsg.msg0[0] }}ほどかかりましたが、あと少しです。</advise-message>
                         <advise-message :show="lastMsg.show[1]">{{ lastMsg.msg0[1] }}</advise-message>
                         <!-- 紙飛行機に乗ったカエルの画像 -->
                         <img v-show="lastMsg.show[2]" src="" alt="カエル">
                     </advise-area>
                     <advise-area :show="lastMsg.show[3]">
-                        <adviser-img :show="lastMsg.show[3]" :data-scr2="lastMsg.name"></adviser-img>
+                        <adviser-img :show="lastMsg.show[3]" :data-scr1="lastMsg.name"></adviser-img>
                         <advise-message :show="lastMsg.show[3]">{{ lastMsg.msg[0] }}</advise-message>
                         <!-- 電話番号入力フォーム -->
                         <form v-show="lastMsg.show[4]" action="" method="post" novalidate>
