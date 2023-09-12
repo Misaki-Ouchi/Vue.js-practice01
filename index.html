@@ -32,7 +32,7 @@
                         <adviser-img :show="firstOptA[0]"></adviser-img>
                         <advise-message :show="firstOptA[0]">かしこまりました。</advise-message>
                         <advise-message :show="firstOptA[1]">一戸建てのお風呂リフォーム相場は</advise-message>
-                        <div class="img-reforms">
+                        <div v-show="firstOptA[2]" class="img-reforms">
                             <div class="img-reforms-left">
                                 <img v-show="firstOptA[2]" class="img-reform1" src="" alt="300万円">
                                 <img v-show="firstOptA[3]" class="img-reform2" src="" alt="最高">

@@ -64,7 +64,7 @@ const adviseM = {
           setTimeout(() => {
             this.load = false;
             this.msg = true;
-          }, 1000 / 4);
+          }, 1000);
         }
       },
     },
@@ -110,10 +110,10 @@ const answerM = {
           setTimeout(() => {
             this.load = false;
             this.msg = true;
-          }, 1000 / 4);
+          }, 1000);
           setTimeout(() => {
             this.read = true;
-          }, 2000 / 4);
+          }, 2000);
         }
       },
     },
@@ -650,7 +650,6 @@ Vue.createApp({
   created: function () {
     let push = () => this.list[0].show.push(true);
     let pushT = () => this.firstOpt.push(true);
-    // this.interValFunc(push, 2, 1);
     this.timerFunc(push, 1);
     this.timerFunc(push, 3);
     this.timerFunc(pushT, 5);
@@ -669,12 +668,12 @@ Vue.createApp({
         this.timerFunc(pushTa, 5);
         setTimeout(() => {
           this.interValFunc(pushTa, 4, 1);
-        }, 6000 / 4);
+        }, 6000);
         // ２つ目の選択肢
         this.newList.push(this.list[1]);
         setTimeout(() => {
           this.showFunc(this.list[1]);
-        }, 9000 / 4);
+        }, 9000);
       }
       if (e.target.dataset.opt === "ざっくり計算") {
         this.list[0].selected = "ざっくり計算です";
@@ -686,7 +685,7 @@ Vue.createApp({
         this.newList.push(this.list[1]);
         setTimeout(() => {
           this.showFunc(this.list[1]);
-        }, 4000 / 4);
+        }, 4000);
       }
     },
 
@@ -705,13 +704,13 @@ Vue.createApp({
           setTimeout(() => {
             this.getCityData();
             list.cityShow = true;
-          }, 5000 / 4);
+          }, 5000);
         } else {
           this.timerFunc(pushT, 5);
         }
         setTimeout(() => {
           this.optScroll(list);
-        }, 5000 / 4);
+        }, 5000);
       }
       // メッセージが二つの場合
       if (list.type === "type2") {
@@ -722,32 +721,32 @@ Vue.createApp({
         this.timerFunc(pushT, 7);
         setTimeout(() => {
           this.optScroll(list);
-        }, 7000 / 4);
+        }, 7000);
       }
       // メッセージが一つ + 二つの場合
       if (list.type === "type3") {
         this.timerFunc(pushTF, 3);
         setTimeout(() => {
           this.msgScroll(list);
-        }, 5000 / 4);
+        }, 5000);
         this.timerFunc(pushT, 5);
         this.timerFunc(pushT, 7);
         this.timerFunc(pushT, 9);
         setTimeout(() => {
           this.optScroll(list);
-        }, 9000 / 4);
+        }, 9000);
       }
       // メッセージが一つ + 一つの場合
       if (list.type === "type4") {
         this.timerFunc(pushTF, 3);
         setTimeout(() => {
           this.msgScroll(list);
-        }, 5000 / 4);
+        }, 5000);
         this.timerFunc(pushTF, 5);
         this.timerFunc(pushT, 7);
         setTimeout(() => {
           this.optScroll(list);
-        }, 7000 / 4);
+        }, 7000);
       }
       // メッセージが二つ + 二つの場合
       if (list.type === "type5") {
@@ -756,12 +755,12 @@ Vue.createApp({
         this.timerFunc(pushT, 7);
         setTimeout(() => {
           this.msgScroll(list);
-        }, 7000 / 4);
+        }, 7000);
         this.timerFunc(pushT, 9);
         this.timerFunc(pushT, 11);
         setTimeout(() => {
           this.optScroll(list);
-        }, 9000 / 4);
+        }, 9000);
       }
     },
 
@@ -879,7 +878,7 @@ Vue.createApp({
       this.timerFunc(pushT, 7);
       setTimeout(() => {
         this.msgScroll(this.lastMsg);
-      }, 9000 / 4);
+      }, 9000);
       this.timerFunc(pushT, 9);
       this.timerFunc(pushT, 11);
     },
@@ -932,7 +931,7 @@ Vue.createApp({
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(func());
-        }, (waitSeconds * 1000) / 4);
+        }, waitSeconds * 1000);
       });
     },
     // 一定時間ごとの繰り返し関数(実行関数、回数、秒数)
@@ -945,7 +944,7 @@ Vue.createApp({
         } else {
           clearInterval(null);
         }
-      }, (seconds * 1000) / 4);
+      }, seconds * 1000);
     },
   },
 }).mount("#app");
