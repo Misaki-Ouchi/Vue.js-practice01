@@ -526,37 +526,37 @@ Vue.createApp({
           current: "true",
           show: [],
         },
-        // {
-        //   name: "contractor",
-        //   name2: "リフォーム会社決まっているか",
-        //   msg0: [
-        //     "31個の入力ありがとうございました。",
-        //     "最後になりますが、補助金が出るか確認いたします。",
-        //   ],
-        //   msg: [
-        //     "国の補助金事業「長期優良住宅化リフォーム推進事業」によって、補助金が出る場合があります。",
-        //     "リフォーム会社はすでにお決まりですか？",
-        //   ],
-        //   options: ["はい", "いいえ"],
-        //   selected: "",
-        //   type: "type5",
-        //   current: "true",
-        //   show: [],
-        // },
-        // {
-        //   name: "nursingCare",
-        //   name2: "家族に要支援または要介護認定",
-        //   msg0: [],
-        //   msg: [
-        //     "介護保険を利用した補助金があります。",
-        //     "要支援または要介護認定されている方は、ご家族にいらっしゃいますか？",
-        //   ],
-        //   options: ["はい", "いいえ"],
-        //   selected: "",
-        //   type: "type2",
-        //   current: "true",
-        //   show: [],
-        // },
+        {
+          name: "contractor",
+          name2: "リフォーム会社決まっているか",
+          msg0: [
+            "31個の入力ありがとうございました。",
+            "最後になりますが、補助金が出るか確認いたします。",
+          ],
+          msg: [
+            "国の補助金事業「長期優良住宅化リフォーム推進事業」によって、補助金が出る場合があります。",
+            "リフォーム会社はすでにお決まりですか？",
+          ],
+          options: ["はい", "いいえ"],
+          selected: "",
+          type: "type5",
+          current: "true",
+          show: [],
+        },
+        {
+          name: "nursingCare",
+          name2: "家族に要支援または要介護認定",
+          msg0: [],
+          msg: [
+            "介護保険を利用した補助金があります。",
+            "要支援または要介護認定されている方は、ご家族にいらっしゃいますか？",
+          ],
+          options: ["はい", "いいえ"],
+          selected: "",
+          type: "type2",
+          current: "true",
+          show: [],
+        },
         {
           name: "city",
           name2: "市区町村",
@@ -575,6 +575,7 @@ Vue.createApp({
         },
       ],
       lastMsg: {
+        name: "lastMsg",
         msg0: [
           "56分30秒",
           "現在、いただいた条件にて私の方で急ぎ算定しております。あと30秒ほどで結果を送付しますので、送付先の入力をお願いします。",
@@ -641,6 +642,9 @@ Vue.createApp({
       prefShow: false, // 都道府県表示
       prefValue: "", // 都道府県名
       telInput: "", // 入力した電話番号
+      telErrorText: "", // 電話番号エラーメッセージ
+      submitDisabled: true, // フォーム送信ボタンの状態
+      formErrorText: "", // フォーム送信ボタンの状態
     };
   },
   created: function () {
@@ -702,8 +706,9 @@ Vue.createApp({
             this.getCityData();
             list.cityShow = true;
           }, 5000 / 4);
+        } else {
+          this.timerFunc(pushT, 5);
         }
-        else { this.timerFunc(pushT, 5); }
         setTimeout(() => {
           this.optScroll(list);
         }, 5000 / 4);
@@ -752,8 +757,8 @@ Vue.createApp({
         setTimeout(() => {
           this.msgScroll(list);
         }, 7000 / 4);
-        this.timerFunc(pushT, 7);
         this.timerFunc(pushT, 9);
+        this.timerFunc(pushT, 11);
         setTimeout(() => {
           this.optScroll(list);
         }, 9000 / 4);
@@ -763,8 +768,8 @@ Vue.createApp({
     // 選択肢クリック後
     selectFunc: function (e) {
       // データに格納している名前から配列が何番目かを特定
-      let num = this.getListFunc(e)
-      let list = this.list[num]
+      let num = this.getListFunc(e);
+      let list = this.list[num];
       // 選択された値
       let value = e.target.dataset.opt;
       // 選択肢を非表示
@@ -810,8 +815,8 @@ Vue.createApp({
     // 都道府県選択
     prefClick: function (e) {
       // データに格納している名前から配列が何番目かを特定
-      let num = this.getListFunc(e)
-      let list = this.list[num]
+      let num = this.getListFunc(e);
+      let list = this.list[num];
       // 選択された値
       this.prefValue = e.target.dataset.opt;
       // 選択したデータをselectedに格納
@@ -841,15 +846,20 @@ Vue.createApp({
       let res = await fetch(
         `https://www.land.mlit.go.jp/webland/api/CitySearch?area=${code}`
       );
-      let lists = await res.json();
+      let data = await res.json();
+      let lists = data["data"];
+      // 50音順に並べ替え
+      lists.sort((a, b) => {
+        return a["name"].localeCompare(b["name"], "ja");
+      });
       // リストに格納
-      this.cityList = lists["data"];
+      this.cityList = lists;
     },
     // 市区町村選択
     cityFunc: function (e) {
       // データに格納している名前から配列が何番目かを特定
-      let num = this.getListFunc(e)
-      let list = this.list[num]
+      let num = this.getListFunc(e);
+      let list = this.list[num];
       // 選択された値
       let value = e.target.dataset.opt;
       // 選択肢を非表示
@@ -864,14 +874,29 @@ Vue.createApp({
       list.show[5] = true;
       // 最後のメッセージ表示
       let pushT = () => this.lastMsg.show.push(true);
-      this.timerFunc(pushT, 3)
-      this.timerFunc(pushT, 5)
-      this.timerFunc(pushT, 7)
+      this.timerFunc(pushT, 3);
+      this.timerFunc(pushT, 5);
+      this.timerFunc(pushT, 7);
       setTimeout(() => {
-        this.msgScroll(list);
+        this.msgScroll(this.lastMsg);
       }, 9000 / 4);
-      this.timerFunc(pushT, 9)
-      this.timerFunc(pushT, 11)
+      this.timerFunc(pushT, 9);
+      this.timerFunc(pushT, 11);
+    },
+    // 電話番号バリデーション
+    telCheck: function () {
+      if (!this.telInput.match(/^0\d{9,10}$/)) {
+        this.telErrorText = "電話番号を入力してください";
+        this.submitDisabled = true
+      } else {
+        this.telErrorText = "";
+        this.submitDisabled = false
+      }
+    },
+    checkForm: function (e) {
+      this.formErrorText = "この電話番号は登録済みです"
+      event.stopPropagation()
+      event.preventDefault()
     },
 
     // データに格納している名前から配列が何番目かを特定
@@ -883,7 +908,7 @@ Vue.createApp({
           num = i;
         }
       }
-      return num
+      return num;
     },
 
     // スクロール関数
@@ -907,7 +932,7 @@ Vue.createApp({
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(func());
-        }, waitSeconds * 1000 / 4);
+        }, (waitSeconds * 1000) / 4);
       });
     },
     // 一定時間ごとの繰り返し関数(実行関数、回数、秒数)
@@ -920,7 +945,7 @@ Vue.createApp({
         } else {
           clearInterval(null);
         }
-      }, seconds * 1000 / 4);
+      }, (seconds * 1000) / 4);
     },
   },
 }).mount("#app");

@@ -21,9 +21,10 @@ body {
   display: inline;
   position: relative;
   top: 1rem;
+  border: 1px solid #19e;
   padding: 28px 40px;
   border-radius: 50%;
-  background-color: #aaa;
+  background: url(../images/adviser.png) center / contain;
 }
 .chat-faceImg::before {
   position: absolute;
@@ -107,10 +108,10 @@ body {
   background-color: #555;
   border-radius: 50%;
   font-size: 1rem;
-  transform: scale(.7);
+  transform: scale(0.7);
 }
 .loading-circle1 {
-  animation: rlc1 .8s linear infinite;
+  animation: rlc1 0.8s linear infinite;
 }
 @keyframes rlc1 {
   0% {
@@ -118,27 +119,27 @@ body {
   }
   25% {
     margin-top: 0px;
-    opacity: .7;
+    opacity: 0.7;
   }
   50% {
     margin-top: 6px;
   }
   75% {
     margin-top: 0px;
-    opacity: .3;
+    opacity: 0.3;
   }
   100% {
     margin-top: -6px;
   }
 }
 .loading-circle2 {
-  animation: rlc2 .8s linear infinite;
+  animation: rlc2 0.8s linear infinite;
   margin-left: 1.2rem;
 }
 @keyframes rlc2 {
   0% {
     margin-top: 0px;
-    opacity: .3;
+    opacity: 0.3;
   }
   25% {
     margin-top: -6px;
@@ -148,27 +149,27 @@ body {
   }
   75% {
     margin-top: 6px;
-    opacity: .7;
+    opacity: 0.7;
   }
   100% {
     margin-top: 0px;
   }
 }
 .loading-circle3 {
-  animation: rlc3 .8s linear infinite alternate;
+  animation: rlc3 0.8s linear infinite alternate;
   margin-left: 2.4rem;
 }
 @keyframes rlc3 {
   0% {
     margin-top: 6px;
-    opacity: .7;
+    opacity: 0.7;
   }
   25% {
     margin-top: 0px;
   }
   50% {
     margin-top: -6px;
-    opacity: .3;
+    opacity: 0.3;
   }
   75% {
     margin-top: 0px;
@@ -181,8 +182,9 @@ body {
 .chat-select-opt2,
 .chat-select-opt {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  background-color: rgb(0, 200, 250 , 30%);
+  background-color: rgb(0, 200, 250, 30%);
   padding: 1rem;
 }
 .chat-select-opt2,
@@ -193,11 +195,15 @@ body {
   flex: 1;
   cursor: pointer;
   text-align: center;
+  min-width: 150px;
   padding: 3rem 0;
   border: 2px solid #066;
   border-radius: 0.6rem;
   box-shadow: 0px 3px #0bd;
   background-color: #fff;
+}
+.chat-select-opt .chat-option {
+  max-width: 200px;
 }
 .chat-option:hover {
   border: 2px solid #aaa;
@@ -209,4 +215,140 @@ body {
 }
 .chat-select-opt2 .option-title {
   font-size: 1.5rem;
+}
+
+/* 市区町村選択 */
+.modal-city {
+  position: fixed;
+  inset: 0;
+  background: rgb(255, 255, 255, 30%);
+  z-index: 10;
+}
+.cityWrap {
+  width: 350px;
+  background-color: #fff;
+  border: 3px solid #0ba;
+  margin: auto;
+}
+.city-title {
+  font-weight: bold;
+  background-color: #0ba;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 1rem 0;
+  margin: 0;
+}
+.city-list {
+  height: 100vh;
+  padding: 0;
+  overflow: scroll;
+}
+.city-item {
+  list-style: none;
+  border-bottom: 1px solid #ccc;
+  margin: 0 1rem;
+}
+.city-item a {
+  cursor: pointer;
+  display: block;
+  color: #777;
+  font-size: 1.2rem;
+  padding: 0.7rem;
+}
+.city-item:last-child {
+  margin-bottom: 5rem;
+}
+
+/* 電話入力フォーム */
+.tel-form {
+  width: 550px;
+  text-align: center;
+  margin-top: 2rem;
+  margin-left: 100px;
+}
+.tel-formWrap {
+  background-color: #ca1;
+  background-color: rgb(200, 150, 50, 30%);
+  border-radius: 20px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.tel-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align-last: left;
+  margin: 0.5rem;
+  margin-left: 1rem;
+}
+.tel-inputArea {
+  margin: 0;
+}
+.tel-input {
+  width: 450px;
+  font-size: 1.3rem;
+  border-radius: 15px;
+  border: 3px solid #ca1;
+  padding: 2rem 1rem;
+}
+.tel-errorText {
+  color: #f55;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin: 0;
+}
+.tel-submit {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5rem;
+  background-color: #f55;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  padding: 1rem 5rem;
+  border-radius: 10px;
+  border: 4px solid #fff;
+  box-shadow: 0 0 7px #000;
+}
+.tel-submit[disabled] {
+  cursor: unset;
+  opacity: 0.6;
+}
+
+/* 画像 */
+.img-reforms {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  height: 250px;
+  margin: auto;
+}
+.img-reforms-left,
+.img-reforms-right {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+}
+.img-reform1,
+.img-reform3 {
+  width: 150px;
+  height: 150px;
+  background-color: #8cf;
+}
+.img-reform3 {
+  height: 30px;
+}
+.img-reform2,
+.img-reform4 {
+  width: 60px;
+  height: 60px;
+  background-color: #3af;
+  border-radius: 50%;
+}
+.img-sending {
+  display: block;
+  width: 300px;
+  padding: 3rem;
+  margin: 0 auto;
 }

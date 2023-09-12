@@ -32,10 +32,16 @@
                         <adviser-img :show="firstOptA[0]"></adviser-img>
                         <advise-message :show="firstOptA[0]">かしこまりました。</advise-message>
                         <advise-message :show="firstOptA[1]">一戸建てのお風呂リフォーム相場は</advise-message>
-                        <img v-show="firstOptA[2]" src="" alt="300万円">
-                        <img v-show="firstOptA[3]" src="" alt="最高">
-                        <img v-show="firstOptA[4]" src="" alt="10万円">
-                        <img v-show="firstOptA[5]" src="" alt="最安">
+                        <div class="img-reforms">
+                            <div class="img-reforms-left">
+                                <img v-show="firstOptA[2]" class="img-reform1" src="" alt="300万円">
+                                <img v-show="firstOptA[3]" class="img-reform2" src="" alt="最高">
+                            </div>
+                            <div class="img-reforms-right">
+                                <img v-show="firstOptA[4]" class="img-reform3" src="" alt="10万円">
+                                <img v-show="firstOptA[5]" class="img-reform4" src="" alt="最安">
+                            </div>
+                        </div>
                         <advise-area :show="firstOptA[6]">
                             <adviser-img :show="firstOptA[6]"></adviser-img>
                             <advise-message :show="firstOptA[7]">データをもとに、あなたの相場をしっかり計算します。</advise-message>
@@ -81,15 +87,17 @@
                         <!-- 答え -->
                         <answer-message :show="item.show[5]" :message="item.selected"></answer-message>
                         <!-- 市町村選択用 -->
-                        <div v-show="item.cityShow" class="cityWrap">
-                            <p>市区町村</p>
-                            <ul>
-                                <li v-for="value in cityList">
-                                    <a @click="cityFunc" :data-name="item.name" :data-opt="value['name']">
-                                        {{ value['name'] }}
-                                    </a>
-                                </li>
-                            </ul>
+                        <div v-show="item.cityShow" class="modal-city">
+                            <div class="cityWrap">
+                                <p class="city-title">市区町村</p>
+                                <ul class="city-list">
+                                    <li class="city-item" v-for="value in cityList">
+                                        <a @click="cityFunc" :data-name="item.name" :data-opt="value['name']">
+                                            {{ value['name'] }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </template>
                     <!-- すべて回答後のメッセージ -->
@@ -98,23 +106,24 @@
                         <advise-message :show="lastMsg.show[0]">ご回答ありがとうございました。{{ lastMsg.msg0[0] }}ほどかかりましたが、あと少しです。</advise-message>
                         <advise-message :show="lastMsg.show[1]">{{ lastMsg.msg0[1] }}</advise-message>
                         <!-- 紙飛行機に乗ったカエルの画像 -->
-                        <img v-show="lastMsg.show[2]" src="" alt="カエル">
+                        <img v-show="lastMsg.show[2]" class="img-sending" src="images/sending.jpg" alt="カエル">
                     </advise-area>
-                    <advise-area :show="lastMsg.show[3]">
-                        <adviser-img :show="lastMsg.show[3]" :data-scr1="lastMsg.name"></adviser-img>
+                    <advise-area :show="lastMsg.show[3]" :data-scr1="lastMsg.name">
+                        <adviser-img :show="lastMsg.show[3]"></adviser-img>
                         <advise-message :show="lastMsg.show[3]">{{ lastMsg.msg[0] }}</advise-message>
                         <!-- 電話番号入力フォーム -->
-                        <form v-show="lastMsg.show[4]" action="" method="post" novalidate>
-                            <div>
-                                <p>電話番号（ショートメッセージ）</p>
-                                <p>
-                                    <input v-model="telInput" type="text" placeholder="08012345678">
-                                    <span id="checkMark"></span>
+                        <form v-show="lastMsg.show[4]" @submit="checkForm" class="tel-form" action="/" method="post" novalidate>
+                            <div class="tel-formWrap">
+                                <p class="tel-title">電話番号（ショートメッセージ）</p>
+                                <p class="tel-inputArea">
+                                    <input @blur="telCheck" v-model="telInput" class="tel-input" type="text" placeholder="08012345678">
+                                    <span class="tel-checkMark"></span>
                                 </p>
-                                <small id="errorText"></small>
+                                <p class="tel-errorText">{{ telErrorText }}</p>
                             </div>
                             <small><a href="">利用規約</a>・<a href="">プライバシーポリシー</a>に同意して</small>
-                            <p><input type="submit" value="結果を受け取る"></p>
+                            <p><input class="tel-submit" type="submit" value="結果を受け取る" v-bind:disabled="submitDisabled"></p>
+                            <p class="tel-errorText">{{ formErrorText }}</p>
                         </form>
                     </advise-area>
                 </div>
