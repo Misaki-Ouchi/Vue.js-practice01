@@ -3,264 +3,120 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>チャットツール</title>
+        <title>Document</title>
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
         <div id="app">
             <div class="wrap">
                 <div class="chat-box">
-
-                    <!-- １ざっくり計算/しっかり計算 ---------------->
-                    <advise-area>
-                        <!-- アドバイザー画像 -->
-                        <adviser-img :show="imgShow"></adviser-img>
-                        <!-- アドバイザーメッセージ -->
-                        <advise-message
-                            :show="advMesShow"
-                        >{{ msgList.opt1[0] }}</advise-message>
-                        <advise-message
-                            :show="advMesShow2"
-                        >{{ msgList.opt1[1] }}</advise-message>
+                    <!-- しっかり/ざっくりの場合 -->
+                    <advise-area v-show="list[0].type === 'type0'" :show="list[0].show[0]">
+                        <adviser-img :show="list[0].show[0]"></adviser-img>
+                        <advise-message :show="list[0].show[0]">{{ list[0].msg0[0] }}</advise-message>
+                        <advise-message :show="list[0].show[1]">{{ list[0].msg0[1] }}</advise-message>
                     </advise-area>
-                    <double-option
-                        v-for="msg in optList.opt1"
-                        :show="opt1Show"
-                        :message="msg"
-                        @click="opt1Func"
-                    ></double-option>
-                    <!-- 答え -->
-                    <answer-message :show="showList.opt1[0]">{{ ansList.ans1 }}です</answer-message>
-                    <!-- ざっくり計算の場合 -->
-                        <advise-area>
-                            <adviser-img :show="showList.calcA[0]"></adviser-img>
-                            <advise-message
-                            :show="showList.calcA[0]"
-                            >かしこまりました。</advise-message>
-                            <advise-message
-                                :show="showList.calcA[1]"
-                            >あなたの費用を、データをもとにざっくり計算します。</advise-message>
-                        </advise-area>
+                    <div v-show="firstOpt[0]" class="chat-select-opt2">
+                        <a @click="fstSelectFunc" data-opt="ざっくり計算" class="chat-option">
+                            <p data-opt="ざっくり計算" class="option-title">ざっくり計算</p>
+                            <p data-opt="ざっくり計算" class="option-detail">広さや形状から<br>おおまかに</p>
+                        </a>
+                        <a @click="fstSelectFunc" data-opt="しっかり計算" class="chat-option">
+                            <p data-opt="しっかり計算" class="option-title">しっかり計算</p>
+                            <p data-opt="しっかり計算" class="option-detail">欲しい機能や<br>設備も入れて</p>
+                        </a>
+                    </div>
+                    <answer-message :show="firstOpt[1]" :message="list[0].selected"></answer-message>
                     <!-- しっかり計算の場合 -->
-                        <advise-area>
-                            <adviser-img :show="showList.calcB[0]"></adviser-img>
-                            <advise-message
-                                :show="showList.calcB[1]"
-                            >かしこまりました。</advise-message>
-                            <advise-message
-                                :show="showList.calcB[2]"
-                            >一戸建てのお風呂リフォーム相場は</advise-message>
-                            <img v-show="showList.calcB[3]" src="" alt="300万円">
-                            <img v-show="showList.calcB[4]" src="" alt="最高">
-                            <img v-show="showList.calcB[5]" src="" alt="10万円">
-                            <img v-show="showList.calcB[6]" src="" alt="最安">
+                    <advise-area :show="firstOptA[0]">
+                        <adviser-img :show="firstOptA[0]"></adviser-img>
+                        <advise-message :show="firstOptA[0]">かしこまりました。</advise-message>
+                        <advise-message :show="firstOptA[1]">一戸建てのお風呂リフォーム相場は</advise-message>
+                        <img v-show="firstOptA[2]" src="" alt="300万円">
+                        <img v-show="firstOptA[3]" src="" alt="最高">
+                        <img v-show="firstOptA[4]" src="" alt="10万円">
+                        <img v-show="firstOptA[5]" src="" alt="最安">
+                        <advise-area :show="firstOptA[6]">
+                            <adviser-img :show="firstOptA[6]"></adviser-img>
+                            <advise-message :show="firstOptA[7]">データをもとに、あなたの相場をしっかり計算します。</advise-message>
                         </advise-area>
-                        <advise-area>
-                            <adviser-img :show="showList.calcB[7]"></adviser-img>
-                            <advise-message
-                                :show="showList.calcB[7]"
-                            >あなたの費用を、データをもとにしっかり計算します。</advise-message>
+                        <!-- ↑↑ここまで↑↑ しっかり計算の場合 -->
+                    </advise-area>
+                    <!-- ざっくり計算の場合 -->
+                    <advise-area :show="firstOptB[0]">
+                        <adviser-img :show="firstOptB[0]"></adviser-img>
+                        <advise-message :show="firstOptB[0]">かしこまりました。</advise-message>
+                        <advise-message :show="firstOptB[1]">データをもとに、あなたの相場をざっくり計算します。</advise-message>
+                    </advise-area>
+                    <!-- ↑↑ここまで↑↑ ざっくり計算の場合 -->
+                    <!-- ↑↑ここまで↑↑ しっかり/ざっくりの場合 -->
+                    <template v-for="item in newList">
+                        <!-- メッセージ -->
+                        <advise-area :show="item.show[0]" :data-scr1="item.name">
+                            <adviser-img :show="item.show[0]"></adviser-img>
+                            <advise-message :show="item.show[0]">{{ item.msg0[0] }}</advise-message>
+                            <advise-message :show="item.show[1]">{{ item.msg0[1] }}</advise-message>
                         </advise-area>
-                    
-                    <!-- ２お風呂の形式 ------------------------>
-                    <advise-area>
-                        <adviser-img :show="showList.opt2[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt2[0]"
-                        >希望されるお風呂は、どのような形式ですか？</advise-message>
+                        <advise-area :show="item.show[2]">
+                            <adviser-img :show="item.show[2]" :data-scr2="item.name"></adviser-img>
+                            <advise-message :show="item.show[2]">{{ item.msg[0] }}</advise-message>
+                            <advise-message :show="item.show[3]">{{ item.msg[1] }}</advise-message>
+                        </advise-area>
+                        <!-- 選択肢 -->
+                        <div v-show="item.show[4]" class="chat-select-opt" :data-scr2="item.name">
+                            <template v-for="value in item.options">
+                                <a @click="selectFunc" :data-name="item.name" :data-opt="value" class="chat-option">
+                                    <p :data-name="item.name" :data-opt="value" class="option-title">{{ value }}</p>
+                                </a>
+                            </template>
+                        </div>
+                        <!-- 都道府県選択用 -->
+                        <div v-show="prefShow" class="chat-select-opt" :data-scr2="item.name">
+                            <template v-for="value in prefList">
+                                <a @click="prefClick" :data-name="item.name" :data-opt="value" class="chat-option">
+                                    <p :data-name="item.name" :data-opt="value" class="option-title">{{ value }}</p>
+                                </a>
+                            </template>
+                        </div>
+                        <!-- 答え -->
+                        <answer-message :show="item.show[5]" :message="item.selected"></answer-message>
+                        <!-- 市町村選択用 -->
+                        <div v-show="item.cityShow" class="cityWrap">
+                            <p>市区町村</p>
+                            <ul>
+                                <li v-for="value in cityList">
+                                    <a @click="cityFunc" :data-name="item.name" :data-opt="value['name']">
+                                        {{ value['name'] }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </template>
+                    <!-- すべて回答後のメッセージ -->
+                    <advise-area :show="lastMsg.show[0]">
+                        <adviser-img :show="lastMsg.show[0]"></adviser-img>
+                        <advise-message :show="lastMsg.show[0]">{{ lastMsg.msg0[0] }}</advise-message>
+                        <advise-message :show="lastMsg.show[1]">{{ lastMsg.msg0[1] }}</advise-message>
+                        <!-- 紙飛行機に乗ったカエルの画像 -->
+                        <img v-show="lastMsg.show[2]" src="" alt="カエル">
                     </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt2"
-                        :show="showList.opt2[1]"
-                        :message="msg"
-                        @click="opt2Func"
-                    ></triple-option>
-                    <answer-message :show="showList.bathType[0]">{{ ansList.ans2 }}です</answer-message>
-
-                    <!-- ３お風呂の大きさ ---------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt3[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt3[0]"
-                        >希望されるお風呂の大きさは、どのくらいですか？</advise-message>
+                    <advise-area :show="lastMsg.show[3]">
+                        <adviser-img :show="lastMsg.show[3]" :data-scr2="lastMsg.name"></adviser-img>
+                        <advise-message :show="lastMsg.show[3]">{{ lastMsg.msg[0] }}</advise-message>
+                        <!-- 電話番号入力フォーム -->
+                        <form v-show="lastMsg.show[4]" action="" method="post" novalidate>
+                            <div>
+                                <p>電話番号（ショートメッセージ）</p>
+                                <p>
+                                    <input v-model="telInput" type="text" placeholder="08012345678">
+                                    <span id="checkMark"></span>
+                                </p>
+                                <small id="errorText"></small>
+                            </div>
+                            <small><a href="">利用規約</a>・<a href="">プライバシーポリシー</a>に同意して</small>
+                            <p><input type="submit" value="結果を受け取る"></p>
+                        </form>
                     </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt3"
-                        :show="showList.opt3[1]"
-                        :message="msg"
-                        @click="opt3Func"
-                    ></triple-option>
-                    <answer-message :show="showList.bathSize[0]">{{ ansList.ans3 }}です</answer-message>
-
-                    <!-- ４浴槽の形 -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt4[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt4[0]"
-                        >浴槽まわりの希望をお伺いします。</advise-message>
-                    </advise-area>
-                    <advise-area>
-                        <adviser-img :show="showList.opt4[1]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt4[1]"
-                        >湯船につかる頻度が多い場合は、浴槽の形が重要です。</advise-message>
-                        <advise-message
-                            :show="showList.opt4[2]"
-                        >浴槽の形にこだわりはありますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt4"
-                        :show="showList.opt4[3]"
-                        :message="msg"
-                        @click="opt4Func"
-                    ></triple-option>
-                    <answer-message :show="showList.bathShape[0]">{{ ansList.ans4 }}です</answer-message>
-
-                    <!-- ５保温効果 -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt5[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt5[0]"
-                        >お湯の冷めにくい、保温効果のある浴槽をご希望されますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt5"
-                        :show="showList.opt5[1]"
-                        :message="msg"
-                        @click="opt5Func"
-                    ></triple-option>
-                    <answer-message :show="showList.keepWarm[0]">{{ ansList.ans5 }}</answer-message>
-
-                    <!-- ６バブルバス・ジェットバス -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt6[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt6[0]"
-                        >リラックス・マッサージ効果のある、バブルバス・ジェットバスをご希望されますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt6"
-                        :show="showList.opt6[1]"
-                        :message="msg"
-                        @click="opt6Func"
-                    ></triple-option>
-                    <answer-message :show="showList.bubble[0]">{{ ansList.ans6 }}</answer-message>
-
-                    <!-- ７オーディオの設置 -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt7[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt7[0]"
-                        >お風呂に埋込み型のオーディオを設置すると、音の広がりがよく、また見た目もスッキリします。</advise-message>
-                        <advise-message
-                            :show="showList.opt7[1]"
-                        >お風呂にオーディオの設置を希望されますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt7"
-                        :show="showList.opt7[2]"
-                        :message="msg"
-                        @click="opt7Func"
-                    ></triple-option>
-                    <answer-message :show="showList.audio[0]">{{ ansList.ans7 }}</answer-message>
-
-                    <!-- ８テレビの設置 -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt8[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt8[0]"
-                        >ゆったりお湯に浸かりながら、最大24インチの大迫力の画面でテレビを楽しむこともできます。</advise-message>
-                        <advise-message
-                            :show="showList.opt8[1]"
-                        >お風呂にテレビの設置を希望されますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt8"
-                        :show="showList.opt8[2]"
-                        :message="msg"
-                        @click="opt8Func"
-                    ></triple-option>
-                    <answer-message :show="showList.tv[0]">{{ ansList.ans8 }}</answer-message>
-
-                    <!-- ９機能的な照明 -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt9[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt9[0]"
-                        >設置する照明にこだわると、利用シーンに合わせて浴室の雰囲気を手軽に変えることができます。</advise-message>
-                        <advise-message
-                            :show="showList.opt9[1]"
-                        >機能的な照明をご希望されますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt9"
-                        :show="showList.opt9[2]"
-                        :message="msg"
-                        @click="opt9Func"
-                    ></triple-option>
-                    <answer-message :show="showList.light[0]">{{ ansList.ans9 }}</answer-message>
-
-                    <!-- １０追い焚き機能 -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt10[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt10[0]"
-                        >湯船に浸かる人が複数いたり、利用時間がバラバラな場合は、追い焚き機能が便利です。</advise-message>
-                        <advise-message
-                            :show="showList.opt10[1]"
-                        >追い焚き機能をご希望されますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt10"
-                        :show="showList.opt10[2]"
-                        :message="msg"
-                        @click="opt10Func"
-                    ></triple-option>
-                    <answer-message :show="showList.addWarm[0]">{{ ansList.ans10 }}</answer-message>
-
-                    <!-- １１アプリ対応 -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt11[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt11[0]"
-                        >お湯はりや浴室暖房などをスマートフォンアプリで操作できるお風呂があります。</advise-message>
-                        <advise-message
-                            :show="showList.opt11[1]"
-                        >アプリ対応のお風呂をご希望されますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt11"
-                        :show="showList.opt11[2]"
-                        :message="msg"
-                        @click="opt11Func"
-                    ></triple-option>
-                    <answer-message :show="showList.forApp[0]">{{ ansList.ans11 }}</answer-message>
-
-                    <!-- １２シャワーヘッド -------------------->
-                    <advise-area>
-                        <adviser-img :show="showList.opt12[0]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt12[0]"
-                        >つづいて、洗い場など浴室全体の希望をお伺いします</advise-message>
-                    </advise-area>
-                    <advise-area>
-                        <adviser-img :show="showList.opt12[1]"></adviser-img>
-                        <advise-message
-                            :show="showList.opt12[1]"
-                        >シャワーヘッドを変更することで、節水して水道代を抑えながら、適度な水圧による刺激を得ることができます。</advise-message>
-                        <advise-message
-                            :show="showList.opt12[2]"
-                        >シャワーヘッドは機能的なものをご希望されますか？</advise-message>
-                    </advise-area>
-                    <triple-option
-                        v-for="msg in optList.opt12"
-                        :show="showList.opt12[3]"
-                        :message="msg"
-                        @click="opt12Func"
-                    ></triple-option>
-                    <answer-message :show="showList.showerHead[0]">{{ ansList.ans12 }}</answer-message>
-
-
                 </div>
                 <!-- / .chat-box -->
             </div>
